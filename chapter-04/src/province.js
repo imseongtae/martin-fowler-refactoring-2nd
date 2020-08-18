@@ -3,9 +3,9 @@ class Province {
 		this._name = doc.name;
 		this._producers = [];
 		this._totalProduction = 0;
-		this._demand = doc._demand;
+		this._demand = doc.demand;
 		this._price = doc.price;
-		doc._producers.forEach(d => this.addProducer(new Producer(this, d)));
+		doc.producers.forEach(d => this.addProducer(new Producer(this, d)));
 	}
 
 	addProducer(arg) {
@@ -86,7 +86,7 @@ class Producer {
 		return this._production;
 	}
 	set production(amountStr) {
-		this._production = amountStr;
+		const amount = parseInt(amountStr);
 		const newProduction = Number.isNaN(amount) ? 0 : amount; // 숫자형이 아니라면 0
 		this._province.totalProduction += newProduction - this._production;
 		this._production = newProduction;
@@ -106,3 +106,10 @@ function sampleProvinceData() {
 		price: 20,
 	};
 }
+
+// console.log('test 10000000000');
+
+module.exports = {
+	Province,
+	sampleProvinceData,
+};
