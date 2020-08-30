@@ -26,6 +26,4 @@ module.exports = {
 			},
 		],
 	},
-
-	ignorePatterns: ['temp.js', 'node_modules/'],
 };
