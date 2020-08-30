@@ -9,6 +9,7 @@
 - 함수 추출하기
 - 함수 인라인하기
 
+- [part.6](#part.6)
 
 
 ## 함수 추출하기
@@ -38,3 +39,127 @@
 
 
 ### 오리지널 스몰토크 시스템
+
+
+
+## part.6
+
+
+## 변수 이름 바꾸기(Rename Variable)
+명확한 프로그래밍의 이름은 핵심짓기다. 변수는 프로그래머가 하려는 일에 관해 많은 것을 설명해준다.
+
+```js
+let a = height * width;
+
+// change name
+let area = height * width;
+```
+
+
+
+### 절차
+1. 폭넓게 쓰이는 변수라면 변수 캡슐화하기를 고려한다.
+1. 이름을 바꿀 변수를 참조하는 곳을 찾아서, 하나씩 변경한다.
+  - 다른 코드베이스에서 참조하는 변수는 외부에 공개된 변수이므로 이 리팩터링을 적용할 수 없음
+  - 변수 값이 변하지 않는다면 다른 이름으로 복제본을 만들어서 점진적으로 변경한다. 하나씩 바꿀 때마다 테스트
+1. 테스트 한다.
+
+
+
+### 변수 캡슐화하기
+임시 변수나 인수처럼 유효범위가 함수 하나로 국한된 변수는 그저 변수를 참조하는 코드를 찾아서 하나씩 바꾸면 되며, 다 바꾼 뒤에는 테스트해서 실수한 부분은 없는지 확인한다.
+
+#### 예시
+
+```js
+let tpHd = 'untitled';
+
+// 어떤 참조는 변수를 읽기만 하고,
+result += '<h1>${tpHd}</h1>'
+// 값을 수정하는 곳도 있다고 할 경우
+tpHd = obj['articleTitle']
+```
+
+#### 변수 캡슐화하기
+
+```js
+result += '<h1>${title()}</h1>'
+
+// 값을 수정하는 곳도 있다고 할 경우
+// tpHd = obj['articleTitle']
+setTitle(obj['articleTitle'])
+
+const title = () => tpHd; // tpHd 변수의 게터
+const setTitle = arg => tpHd = arg; // tpHd 변수의 세터
+```
+
+
+
+#### 예시: 상수 이름 바꾸기
+상수의 이름은 캡슐화하지 않고도 복제방식으로 점진적으로 바꿀 수 있다.
+상수가 다음처럼 선언되어 있을 경우
+
+```js
+const cpyNm = '애크미 구스베리'
+```
+
+1. 먼저 원본의 이름을 바꾼 후
+1. 원본의 원래 이름과 같은 복제본을 만든다.
+
+```js
+const companyName = '애크미 구스베리'
+const cpyNm = companyName
+```
+
+
+## 매개변수 객체 만들기(Introduce Parameter Object)
+배경  
+데이터 항목 여러 개가 이 함수에서 저 함수로 함께 몰려다니는 경우를 자주 본다. 나는 이런 데이터 무리를 발견하면 데이터 구조 하나로 모아주곤 한다.
+
+```js
+function amountInvoiced(startDate, endDate) {...}
+function amountReceived(startDate, endDate) {...}
+```
+
+데이터 뭉치를 데이터 구조로 묶으면 데이터 사이의 관계가 명확해진다는 이점을 얻는다. 게다가 함수가 이 데이터 구조를 받게 하면 매개변수 수가 줄어든다. 
+
+```js
+function amountInvoiced(aDataRange) {...}
+function amountReceived(aDataRange) {...}
+```
+
+
+### 절차
+1. 적당한 데이터 구조가 아직 마련되어 있지 않다면 새로 만든다.
+1. 테스트한다.
+1. 함수 선언 바꾸기로 새 데이터 구조를 매개변수로 추가한다.
+1. 테스트한다.
+1. 함수 호출시 새로운 데이터 구조 인스턴스를 넘기도록 수정한다. 하나씩 수정할 때마다 테스트한다.
+1. 기존 매개변수를 사용하던 코드를 새 데이터 구조의 원소를 사용하도록 바꾼다.
+1. 다 바꿨다면 기존 매개변수를 제거하고 테스트한다.
+
+
+### 예시
+
+```js
+function readingsOutsideRange(station, range) {
+	return station.readings.filter(r => !range.contains(r.temp));
+}
+
+class NumberRange {
+	constructor(min, max) {
+		this._data = { min: min, max: max };
+	}
+	get min() {
+		return this._data.min;
+	}
+	get max() {
+		return this._data.max;
+	}
+
+	contains(aNumber) {
+		return aNumber >= this.min && aNumber <= this.max;
+	}
+}
+
+```
