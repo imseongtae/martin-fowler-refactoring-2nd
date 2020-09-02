@@ -239,11 +239,42 @@ function enrichReading(argReading) {
 
 ## 6.11 단계 쪼개기
 
+```js
+const orderData = orderString.split(/\s+/);
+const productPrice = priceList[orderData[0].split('-')[1]];
+const orderPrice = parseInt(orderData[1]) * productPrice;
+```
+
+```js
+const orderRecord = parseOrder(order);
+const orderPrice = price(orderRecord, priceList)
+
+function parseOrder(aString) {
+  const values = aString.split(/\s+/);
+  return ({
+    productID: values[0].split('-')[1],
+    quantity: parseInt(values[1]),
+  });
+}
+function price(order, priceList) {
+  return order.quantity * priceList[order.productID];
+}
+
+```
 
 ### 배경
+> 마틴 파울러 - 나는 서로 다른 두 대상을 한꺼번에 다루는 코드를 발견하면 각각을 별개 모듈로 나누는 방법을 모색한다. 코드를 수정해야 할 때 두 대상을 동시에 생각할 필요 없이 하나에만 집중하기 위해서다. 모듈이 잘 분리되어 있다면 다른 모듈의 상세 내용은 전혀 기억하지 못해도 원하는 대로 수정을 끝마칠 수도 있다. 
+
 
 
 ### 절차
-
+1. 두 번째 단계에 해당하는 코드를 독립함수로 추출한다.
+1. 테스트한다. 
+1. 중간 데이터 구조를 만들어서 앞에서 추출한 함수의 인수로 추가한다.
+1. 테스트한다.
+1. 추출한 두 번째 단계 함수의 매개변수를 하나씩 검토한다. 그중 첫 번째 단계에서 사용되는 것은 중간 데이터 구조로 옮긴다. 하나씩 옮길 때마다 테스트한다.
+  - 간혹 두 번째 단계에서 사용하면 안되는 매개변수가 있다. 이럴 때는 각 매개변수 사용한 결과를 중간 데이터 구조의 필드로 추출하고, 이 필드의 값을 설정하는 문장을 호출한 곳으로 옮긴다.
+1. 첫 번째 단계 코드를 함수로 추출하면서, 중간 데이터 구조를 반환하도록 만든다.
+  - 이때 첫 번째 단계를 변환기 객체로 추출해도 좋다.
 
 
