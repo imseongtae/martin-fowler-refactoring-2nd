@@ -8,8 +8,8 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 2020,
 	},
-	plugins: ['eslint-plugin-prettier'],
-	extends: ['eslint:recommended', 'eslint-config-prettier'],
+	plugins: ['eslint-plugin-prettier', 'mocha'],
+	extends: ['eslint:recommended', 'eslint-config-prettier', 'plugin:mocha/recommended'],
 	rules: {
 		'no-console': 'off',
 		'prettier/prettier': [
@@ -20,7 +20,7 @@ module.exports = {
 				useTabs: true,
 				tabWidth: 2,
 				trailingComma: 'all',
-				printWidth: 80,
+				printWidth: 90,
 				bracketSpacing: true,
 				arrowParens: 'avoid',
 			},
