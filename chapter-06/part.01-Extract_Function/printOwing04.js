@@ -7,10 +7,7 @@ function printOwing(invoice) {
 
 	const outstanding = calculateOutstanding(invoice); // 함수가 반환하는 값을 저장
 
-	// 마감일(dueDate)을 기록한다.
-	const today = Clock.today;
-	invoice.dueDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
-
+	recordDueDate(invoice); // 마감일 설정 로직을 함수로 추출
 	printDetails(invoice, outstanding); // 세부 사항 출력 로직을 함수로 추출
 }
 
@@ -21,6 +18,12 @@ function calculateOutstanding(invoice) {
 		result += o.amount;
 	}
 	return result; // 수정된 값 반환
+}
+
+function recordDueDate(invoice) {
+	// 마감일(dueDate)을 기록한다.
+	const today = Clock.today;
+	invoice.dueDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
 }
 
 // 지역변수를 매개변수로 전달
