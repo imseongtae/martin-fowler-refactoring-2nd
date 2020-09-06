@@ -20,6 +20,7 @@
   "homepage": "https://github.com/imseongtae/reafactoring-ver.2#readme",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-mocha": "^8.0.0",
