@@ -1,7 +1,8 @@
-*.spec.js
+# file
+temp.js
 
+# setting
 node_modules/
 package.json
 package-lock.json
 
-temp.js
