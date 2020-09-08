@@ -9,8 +9,8 @@
 
 
 ## table of contents
-1. [7.1 Encapsulate Record](#7.1-Encapsulate-Record)
-1. [7.2 Encapsulate Collection](#7.2-Encapsulate-Collection)
+1. [7.1 Encapsulate Record](#7.1-encapsulate-record)
+1. [7.2 Encapsulate Collection](#Encapsulate-Collection)
 1. [7.3 Replace Primitive with Object](#7.3-Replace-Primitive-with-Object)
 1. [7.4 Replace Temp with Query](#7.4-Replace-Temp-with-Query)
 
@@ -34,7 +34,8 @@
 
 
 
-## 7.2 Encapsulate CollectionReplace Primitive with Object
+## Encapsulate Collection
+7.2 Encapsulate Collection, 컬렉션 캡슐화하기
 
 ```js
 class Person {
