@@ -36,6 +36,28 @@
 
 ## 7.2 Encapsulate CollectionReplace Primitive with Object
 
+```js
+class Person {
+  get courses() {
+		return this._courses;
+	}
+	set courses(aList) {
+		this._courses = aList;
+	}
+} 
+```
+
+```js
+class Person {
+  get courses() {
+		return this._courses.slice();
+	}
+	addCourse(aCourse) { this._courses.push(aCourse); }
+	removeCourse(aCourse) { ... }
+} 
+```
+
+
 ### 배경(Motivation)
 
 가변 데이터를 캡슐화하면 데이터 구조가 언제 어떻게 수정되는지 파악하기 쉬워서 필요한 시점에 데이터 구조를 변경하기 쉬워진다. 
@@ -75,11 +97,35 @@
 
 
 ## 7.3 Replace Primitive with Object
+**기본형을 객체로 바꾸기**
+
+```js
+orders.filter(o => 'high' === o.priority || 'rush' === o.priority);
+```
+
+```js
+orders.filter(o => o.priority.higherThan(new Priority('normal')));
+```
+
 
 ### 배경(Motivation)
+개발 초기에는 단순한 정보를 수자나 문자열 같은 간단한 데이터 항목으로 표현할 때가 많지만 개발이 진행되면서 이 정보들이 더 이상 간단하지 않게 변한다.
+
+> 마틴 파울러: 나는 단순한 출력 이상의 기능이 필요해지는 순간 그 데이터를 표현하는 전용 클래스를 정의하는 편이다. 시작은 효과가 미미하지만 프로그램이 커질수록 점점 유용한 도구가 된다. 그리 대단해 보이지 않을지 모르지만 코드베이스에 미치는 효과는 놀라울 만큼 크다.
+> 초보 프로그래머에게는 직관에 어긋나 보일 수 있지만 경험 많은 개발자들은 여러 가지 리팩터링 중에서도 가장 유용한 것으로 손꼽는다.
+
+### 절차
+1. 아직 변수를 캡슐화하지 않았다면 캡슐화한다.
+1. 단순한 값 클래스를 만든다. 생성자는 기존 값을 인수로 받아서 저장하고, 이 값을 반환하는 게터를 추가한다.
+1. 정적 검사를 수행한다.
+1. 값 클래스의 인스턴스를 새로 만들어서 필드에 저장하도록 세터를 수정한다. 이미 있다면 필드의 타입을 적절히 변경한다. 
+1. 새로 만든 클래스의 게터를 호출한 결과를 반환하도록 게터를 수정한다. 
+1. 테스트한다.
+1. 함수 이름을 바꾸면 원본 접근자의 동작을 더 잘 드러낼 수 있는지 검토한다. 
 
 
-
+### 예시
+[part.03-Replace_Primitive_with_Object](./part.03-Replace_Primitive_with_Object)
 
 
 **[⬆ back to top](#table-of-contents)**
