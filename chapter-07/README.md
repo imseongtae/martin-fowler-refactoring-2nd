@@ -9,17 +9,17 @@
 
 
 ## table of contents
-1. [7.1 Encapsulate Record](#7.1-encapsulate-record)
+1. [7.1 Encapsulate Record](#encapsulate-record)
 1. [7.2 Encapsulate Collection](#Encapsulate-Collection)
-1. [7.3 Replace Primitive with Object](#7.3-Replace-Primitive-with-Object)
-1. [7.4 Replace Temp with Query](#7.4-Replace-Temp-with-Query)
-
+1. [7.3 Replace Primitive with Object](#Replace-Primitive-with-Object)
+1. [7.4 Replace Temp with Query](#Replace-Temp-with-Query)
 
 
 ---
 
 
-## 7.1 Encapsulate Record
+## Encapsulate Record
+7.1 레코드 캡슐화하기
 
 ### 절차
 1. 레코드를 담은 변수를 캡슐화한다.
@@ -35,16 +35,16 @@
 
 
 ## Encapsulate Collection
-7.2 Encapsulate Collection, 컬렉션 캡슐화하기
+7.2 컬렉션 캡슐화하기
 
 ```js
 class Person {
   get courses() {
-		return this._courses;
-	}
-	set courses(aList) {
-		this._courses = aList;
-	}
+    return this._courses;
+  } 
+  set courses(aList) {
+    this._courses = aList;
+  }
 } 
 ```
 
@@ -97,8 +97,8 @@ class Person {
 **[⬆ back to top](#table-of-contents)**
 
 
-## 7.3 Replace Primitive with Object
-**기본형을 객체로 바꾸기**
+## Replace Primitive with Object
+**7.3 기본형을 객체로 바꾸기**
 
 ```js
 orders.filter(o => 'high' === o.priority || 'rush' === o.priority);
@@ -132,9 +132,17 @@ orders.filter(o => o.priority.higherThan(new Priority('normal')));
 **[⬆ back to top](#table-of-contents)**
 
 
-## 7.4 Replace Temp with Query
+## Replace Temp with Query
+7.4 임시변수를 질의 함수로 바꾸기
+
+
 
 ### 배경(Motivation)
+
+
+
+### 절차
+
 
 
 
