@@ -13,13 +13,43 @@
 1. [7.2 Encapsulate Collection](#Encapsulate-Collection)
 1. [7.3 Replace Primitive with Object](#Replace-Primitive-with-Object)
 1. [7.4 Replace Temp with Query](#Replace-Temp-with-Query)
-
+1. [7.5 Extract Class](#Extract-Class)
 
 ---
 
 
 ## Encapsulate Record
 7.1 레코드 캡슐화하기
+
+```js
+organization = {name: '애크미 구스베리', country: 'GB'};
+```
+
+```js
+class Organization {
+  constructor(data) {
+    this._name = data.name;
+    this._country = data.country;
+  }
+  get name() { return this._name; }
+  set name(arg) { this._name = arg; }
+  get country() { return this._country; }
+  set country(arg) { this._country = arg; }
+}
+```
+
+### 배경(Motivation)
+대부분의 프로그래밍 언어는 레코드를 표현하는 구조를 통해 연관된 여러 데이터를 직관적인 방식으로 묶을 수 있는 방식을 제공하는데, 이를 통해 각각을 따로 취급할 때보다 훨씬 의미 있는 단위로 전달할 수 있게 해준다.
+**하지만 단순한 레코드에는 단점이 있다.** 특히, 계산해서 얻을 수 있는 값과 그렇지 않은 값을 명확히 구분해 저장해야 하는 점이 번거롭다. 
+
+> 바로 이 때문에 나는 가변 데이터를 저장하는 용도로는 레코드보다 객체를 선호하는 편이다.
+
+
+#### 레코드의 두 가지 구조로 구분할 수 있다
+- 필드 이름을 노출하는 형태
+- 필드를 외부로부터 숨겨서 내가 원하는 이름을 쓸 수 있는 형태
+  - 주로 라이브러리에서 해시, 맵, 딕셔너리, 연관 배열 등의 이름으로 제공
+
 
 ### 절차
 1. 레코드를 담은 변수를 캡슐화한다.
@@ -32,6 +62,12 @@
 1. 레코드의 필드도 데이터 구조인 중첩 구조라면 레코드 캡슐화하기와 컬렉션 캡슐화하기를 재귀적으로 적용한다.
 
 
+#### 학습이 필요한 단어
+- 직렬화(serialize)
+- 해시맵
+
+
+**[⬆ back to top](#table-of-contents)**
 
 
 ## Encapsulate Collection
@@ -160,3 +196,41 @@ orders.filter(o => o.priority.higherThan(new Priority('normal')));
 
 
 **[⬆ back to top](#table-of-contents)**
+
+
+## Extract Class
+7.5 클래스 추출하기
+
+```js
+
+
+```
+
+```js
+
+
+```
+
+### 배경(Motivation)
+클래스는 반드시 명확하게 추상화하고, 소수의 주어진 역할만 처리해야 한다는 가이드 라인을 들어봤을 것이다. 하지만 실무에서는 몇 가지 연산을 추가하고 데이터도 보강하다보면 클래스가 점점 비대해지곤한다.   
+메서드와 데이터가 너무 많은 클래스는 이해하기가 쉽지 않으니 잘 살펴보고 적절히 분리하는 것이 좋다. **특히 일부 데이터와 메서드를 따로 묶을 수 있다면** 어서 분리하라는 신호다.
+함께 변경되는 일이 많거나 서로 의존하는 데이터들도 분리한다. 특정 데이터나 메서드 일부를 제거하면 어떤 일이 일어나는지 자문해보면 판단에 도움이 된다. 제거해도 다른 필드나 메서드들이 논리적으로 문제가 없다면 분리할 수 있다는 뜻이다.
+
+
+### 절차
+1. 클래스의 역할을 분리할 방법을 정한다.
+1. 분리될 역할을 담당할 클래스를 새로 만든다.
+1. 원래 클래스의 생성자에서 새로운 클래스의 인스턴스를 생성하여 필드에 저장해둔다.
+1. 분리될 역할에 필요한 필드들을 새 클래스로 옮긴다. 하나씩 옮길 때마다 테스트한다.
+1. 메서드들도 새 클래스로 옮긴다. 이때 저수준 메서드, 즉 다른 메서드를 호출하기보다는 호출을 당하는 일이 많은 메서드부터 옮긴다. 하나씩 옮길 때마다 테스트한다.
+1. 양쪽 클래스의 인터페이스를 살펴보면서 불필요한 메서드를 제거하고, 이름도 환경에 맞게 바꾼다.
+1. 새 클래스를 외부로 노출할지 정한다. 노출하려거든 새 클래스에 참조를 값으로 바꾸기를 적용할지 고민해본다.
+
+
+
+### 코드
+[part.05-Extract_Class](./part.05-Extract_Class)
+
+
+**[⬆ back to top](#table-of-contents)**
+
