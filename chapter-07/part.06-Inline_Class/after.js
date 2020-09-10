@@ -1,27 +1,12 @@
-class TrackingInformation {
-	constructor(data) {
-		this._shippingCompany = data.shippingCompany;
-		this._trackingNumber = data.trackingNumber;
-	}
-	// 외부에서 직접 호출하는 TrackingInformation의 메서드들을 모조리 Shipment으로 옮기기
-	// get trackingNumber() {
-	// 	return this._trackingNumber;
-	// }
-	// set trackingNumber(arg) {
-	// 	this._trackingNumber = arg;
-	// }
-	// get display() {
-	// 	return `${this.shippingCompany}: ${this.trackingNumber}`;
-	// }
-}
+// 1. TrackingInformation의 모든 요소를 모두 Shipment으로 옮긴 후
+// 2. TrackingInformation 클래스 삭제
 
 class Shipment {
 	constructor(data) {
 		this._shippingCompany = data.shippingCompany;
 		this._trackingNumber = data.trackingNumber;
-		this._trackingInformation = new TrackingInformation(data);
 	}
-	// Shipment에 위임 함수를 만들고, 클라이언트가 이를 호출하도록 수정
+
 	get shippingCompany() {
 		return this._shippingCompany;
 	}
