@@ -14,6 +14,7 @@
 1. [7.3 Replace Primitive with Object](#Replace-Primitive-with-Object)
 1. [7.4 Replace Temp with Query](#Replace-Temp-with-Query)
 1. [7.5 Extract Class](#Extract-Class)
+1. [7.6 Inline Class](#Inline-Class)
 
 ---
 
@@ -267,7 +268,8 @@ class Person {
 1. 소스 클래스를 삭제하고 조의를 표한다.
 
 ### 코드
-[part.06-Inline_Class](./part.06-Inline_Class)
+- [Githistory for Test Code](./https://github.githistory.xyz/imseongtae/martin-fowler-reafactoring-2nd/blob/master/chapter-07/part.06-Inline_Class/after.js)
+- [part.06-Inline_Class](./part.06-Inline_Class)
 
 
 **[⬆ back to top](#table-of-contents)**
