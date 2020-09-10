@@ -1,4 +1,4 @@
-# 캡슐화
+# chapter.7 캡슐화
 
 모듈을 분리하는 가장 중요한 기준은 시스템에서 각 모듈이 자신을 제외한 다른 부분에 드러내지 않아야 할 비밀을 얼마나 잘 숨기느냐에 있다.
 
@@ -234,3 +234,40 @@ orders.filter(o => o.priority.higherThan(new Priority('normal')));
 
 **[⬆ back to top](#table-of-contents)**
 
+
+## Inline Class
+7.6 클래스 인라인하기
+
+```js
+class Person {
+  get officeAreaCode() { return this._telephoneNumber.areaCode; }
+  get officeNumber() { return this._telephoneNumber.number; }
+}
+class TelephoneNumber {
+  get areaCode() { return this._areaCode; }
+	get number() { return this._number; }
+}
+```
+
+```js
+class Person {
+  get officeAreaCode() { return this._officeAreaCode; }
+  get officeNumber() { return this._officeNumber; }
+}
+```
+
+### 배경(Motivation)
+클래스 인라인하기는 클래스 추출하기를 거꾸로 돌리는 리팩터링이다. 더 이상 제 역할을 못 해서 그대로 두면 안 되는 클래스는 인라인해버린다. 역할을 옮기는 리팩터링을 하고 난 후 특정 클래스에 남은 역할이 거의 없을 때 이런 현상이 발생하는데, 역할이 거의 없는 불쌍한 클래스를 가장 많이 사용하는 클래스로 옮기자. 
+
+
+### 절차
+1. 소스 클래스의 각 public 메서드에 대응하는 메서드들을 타깃 클래스에 생성한다. 이 메서드들은 단순히 작업을 소스 클래스로 위임해야 한다.
+1. 소스 클래스의 메서드를 사용하는 코드를 모두 타깃 클래스의 위임 메서드를 사용하도록 바꾼다. 하나씩 바꿀 때마다 테스트한다. 
+1. 소스 클래스의 메서드와 필드를 모두 타깃 클래스로 옮긴다. 하나씩 옮길 때마다 테스트한다. 
+1. 소스 클래스를 삭제하고 조의를 표한다.
+
+### 코드
+[part.06-Inline_Class](./part.06-Inline_Class)
+
+
+**[⬆ back to top](#table-of-contents)**
