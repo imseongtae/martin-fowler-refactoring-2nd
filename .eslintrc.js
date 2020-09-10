@@ -9,8 +9,8 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 2020,
 	},
-	plugins: ['eslint-plugin-prettier', 'mocha'],
-	extends: ['eslint:recommended', 'eslint-config-prettier', 'plugin:mocha/recommended'],
+	plugins: ['eslint-plugin-prettier'],
+	extends: ['eslint:recommended', 'eslint-config-prettier'],
 	rules: {
 		'no-console': 'off',
 		'prettier/prettier': [
