@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:06": "NOED_ENV=test mocha $(find ./chapter-06/ -name '*.spec.js') -w"
+    "test:06": "NOED_ENV=test mocha $(find ./chapter-06/ -name '*.spec.js') -w",
+    "test:07": "NOED_ENV=test mocha $(find ./chapter-07/ -name '*.spec.js') -w"
   },
   "repository": {
     "type": "git",
