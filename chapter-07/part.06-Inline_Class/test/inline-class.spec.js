@@ -7,7 +7,7 @@ const trackingInfoData = {
 	trackingNumber: 1743,
 };
 
-describe('Original Code Test', () => {
+describe('7-6 Original Code Test', () => {
 	const aShipment = new beforeShipment(trackingInfoData);
 	describe('success', () => {
 		it('aShipment._trackingInformation.shippingCompany works properly', done => {
@@ -35,7 +35,7 @@ describe('Original Code Test', () => {
 	});
 });
 
-describe('Refactoring Code Test', () => {
+describe('7-6 Refactoring Code Test', () => {
 	describe('success', () => {
 		const aShipment = new afterShipment(trackingInfoData);
 		it('get display method works properly', done => {
