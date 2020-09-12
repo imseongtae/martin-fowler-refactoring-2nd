@@ -9,7 +9,6 @@ class Person {
 	get manager() {
 		return this._department.manager;
 	}
-	// setter 추가, Department 객체의 메서드 위임
 	set manager(arg) {
 		this._department.manager = arg;
 	}
@@ -20,12 +19,7 @@ class Person {
 	set chargeCode(arg) {
 		this._department.chargeCode = arg;
 	}
-	get department() {
-		return this._department;
-	}
-	set department(arg) {
-		this._department = arg;
-	}
+	// Department 객체에 대한 접근자 삭제
 }
 
 class Department {
@@ -33,7 +27,6 @@ class Department {
 		this._chargeCode = data.chargeCode;
 		this._manger = data.manager;
 	}
-
 	get chargeCode() {
 		return this._chargeCode;
 	}
