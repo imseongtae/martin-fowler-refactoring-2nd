@@ -6,6 +6,10 @@ class Person {
 	get name() {
 		return this._name;
 	}
+	// Department 객체에 대한 위임 메서드
+	get manager() {
+		return this._department.manager;
+	}
 	get department() {
 		return this._department;
 	}
