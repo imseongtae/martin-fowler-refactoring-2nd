@@ -9,6 +9,7 @@ class Person {
 	get manager() {
 		return this._department.manager;
 	}
+	// setter 추가, Department 객체의 메서드 위임
 	set manager(arg) {
 		this._department.manager = arg;
 	}
