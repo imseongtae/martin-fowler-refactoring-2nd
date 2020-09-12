@@ -15,6 +15,7 @@
 1. [7.4 Replace Temp with Query](#Replace-Temp-with-Query)
 1. [7.5 Extract Class](#Extract-Class)
 1. [7.6 Inline Class](#Inline-Class)
+1. [7.7 Hide Delegate](#Hide-Delegate)
 
 ---
 
@@ -268,8 +269,48 @@ class Person {
 1. 소스 클래스를 삭제하고 조의를 표한다.
 
 ### 코드
-- [Githistory for Test Code](./https://github.githistory.xyz/imseongtae/martin-fowler-reafactoring-2nd/blob/master/chapter-07/part.06-Inline_Class/after.js)
+- [Githistory for Test Code](https://github.githistory.xyz/imseongtae/martin-fowler-reafactoring-2nd/blob/master/chapter-07/part.06-Inline_Class/after.js)
 - [part.06-Inline_Class](./part.06-Inline_Class)
 
 
 **[⬆ back to top](#table-of-contents)**
+
+
+
+## Hide Delegate
+7.7 위임 숨기기
+
+```js
+manager = aPerseon.department.manager;
+```
+
+```js
+manager = aPerson.manager;
+
+class Person {
+  get manager() { return this.department.manager; }
+}
+```
+
+
+### 배경(Motivation)
+**모듈화 설계를 제대로 하는 핵심은 캡슐화다.** 캡슐화는 모듈들이 시스템의 다른 부분에 대해 알아야 할 내용을 줄여준다. 캡슐화가 잘 되어 있다면 무언가를 변경해야 할 때 함께 고려해야 모듈 수가 적어져서 코드를 변경하기가 훨씬 쉬워진다.
+
+> 객체지향을 처음 배울 때는 캡슐화란 필드를 숨기는 것이라고 배운다. 그러다 경험이 쌓이면 캡슐화의 역할이 그보다 많다는 사실을 깨닫는다.
+
+
+
+### 절차
+1. 위임 객체의 각 메서드에 해당하는 위임 메서드를 서버에 생성한다.
+1. 클라이언트가 위임 객체 대신 서버를 호출하도록 수정한다. 하나씩 바꿀 때마다 테스트한다.
+1. 모두 수정했다면, 서버로부터 위임 객체를 얻는 접근자를 제거한다.
+1. 테스트한다.
+
+
+### 코드
+
+
+
+
+**[⬆ back to top](#table-of-contents)**
+
