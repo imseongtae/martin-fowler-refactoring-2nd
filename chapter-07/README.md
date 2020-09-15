@@ -359,7 +359,8 @@ manager = aPerson.department.manager
 
 
 ### 코드
-
+- [Remove Middle Man Githistory](https://github.githistory.xyz/imseongtae/martin-fowler-reafactoring-2nd/blob/master/chapter-07/part.08-Remove_Middle_Man/after.js)
+- [part.08-Remove_Middle_Man](./part.08-Remove_Middle_Man)
 
 
 **[⬆ back to top](#table-of-contents)**
@@ -387,8 +388,11 @@ manager = aPerson.department.manager
 
 
 ### 코드
-
+- [Substitute_Algorithm Githistory](https://github.githistory.xyz/imseongtae/martin-fowler-reafactoring-2nd/blob/master/chapter-07/part.09-Substitute_Algorithm/after.js)
+- [part.09-Substitute_Algorithm](./part.09-Substitute_Algorithm)
 
 
 
 **[⬆ back to top](#table-of-contents)**
+
+
