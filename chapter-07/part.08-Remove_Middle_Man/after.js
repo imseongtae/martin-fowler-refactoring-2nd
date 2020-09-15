@@ -4,12 +4,15 @@ class Person {
 	constructor(data) {
 		this._department = new Department(data);
 	}
-	get manager() {
-		return this._department.manager;
+	get department() {
+		return this._department;
 	}
-	set manager(arg) {
-		this._department.manager = arg;
-	}
+	// get manager() {
+	// 	return this._department.manager;
+	// }
+	// set manager(arg) {
+	// 	this._department.manager = arg;
+	// }
 }
 
 class Department {
