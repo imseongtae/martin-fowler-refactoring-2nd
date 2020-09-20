@@ -1,23 +1,23 @@
-class Custoemer {
+class Customer {
 	constructor(name, discountRate) {
 		this._name = name;
 		// this._discountRate = discountRate;
-		this._setDiscountRate(discountRate);
 		this._contract = new CustomerContract(dateToday());
+		this._setDiscountRate(discountRate); // Cannot set property 'discountRate' of undefinded 오류가 발생하지 않음
 	}
+	// 접근자가 CustomerContract 클래스의 인스턴스를 사용하도록 수정
 	get discountRate() {
-		return this._discountRate;
+		return this._contract.discountRate;
 	}
-	// 할인율을 수정하는 public 세터 대신 메서드를 이용
 	_setDiscountRate(aNumber) {
-		this._discountRate = aNumber;
+		this._contract.discountRate = aNumber;
 	}
 	becomePreferred() {
 		this._setDiscountRate(this.discountRate + 0.03);
 	}
 
 	applyDiscount(amount) {
-		return amount.subtract(amount.multiply(this._discountRate));
+		return amount.subtract(amount.multiply(this.discountRate)); // 이 부분 _ 로 인해 에러
 	}
 }
 
@@ -39,4 +39,4 @@ function dateToday() {
 	return new Date();
 }
 
-module.exports = Custoemer;
+module.exports = Customer;
