@@ -4,7 +4,7 @@ class Customer {
 		this._discountRate = discountRate;
 		this._contract = new CustomerContract(dateToday());
 	}
-	getdiscountRate() {
+	get discountRate() {
 		return this._discountRate;
 	}
 	becomePreferred() {
