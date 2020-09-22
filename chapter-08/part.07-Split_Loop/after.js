@@ -1,18 +1,31 @@
 function reportYoungestAgeAndTotalSalary(people) {
-	let youngest = people[0] ? people[0].age : Infinity;
-	let totalSalary = 0;
-	for (const p of people) {
-		// if (p.age < youngest) youngest = p.age;
-		totalSalary += p.salary;
+	// let totalSalary = 0;
+	// for (const p of people) {
+	// 	totalSalary += p.salary;
+	// }
+
+	// let youngest = people[0] ? people[0].age : Infinity;
+	// for (const p of people) {
+	// 	if (p.age < youngest) youngest = p.age;
+	// }
+	return `youngestAge: ${youngestAge()}, totalSalary: ${totalSalary()}`;
+
+	// 더 가다듬기 작업
+	// 나누어 놓은 각 반복문을 함수로 추출하자
+	function totalSalary() {
+		let totalSalary = 0;
+		for (const p of people) {
+			totalSalary += p.salary;
+		}
+		return totalSalary;
 	}
-	// 반복문 쪼개기 단계
-	// 1. 단순히 반복문 복제하기
-	// 2. 잘못된 결과를 초래할 수 있는 중복 제거
-	for (const p of people) {
-		if (p.age < youngest) youngest = p.age;
-		// totalSalary += p.salary;
+	function youngestAge() {
+		let youngest = people[0] ? people[0].age : Infinity;
+		for (const p of people) {
+			if (p.age < youngest) youngest = p.age;
+		}
+		return youngest;
 	}
-	return `youngestAge: ${youngest}, totalSalary: ${totalSalary}`;
 }
 
 module.exports = reportYoungestAgeAndTotalSalary;
