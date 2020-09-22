@@ -1,0 +1,29 @@
+const { expect } = require('chai');
+const { photoDiv, renderPerson } = require('../after');
+
+const date = new Date('May 10, 2019');
+
+const aPerson = {
+	name: 'Alex',
+	photo: {
+		title: 'holiday',
+		location: 'Greece',
+		date: date,
+	},
+};
+
+describe('8-3 Refactoring photoDiv', () => {
+	it('render a photo div', () => {
+		expect(photoDiv(aPerson.photo)).to.equal(
+			'<div>\n<p>title: holiday</p>\n<p>location: Greece</p>\n<p>date: Fri May 10 2019</p>\n</div>',
+		);
+	});
+});
+
+describe('8-3 Refactoring renderPerson', () => {
+	it('has bankCharge of 4.5 when daysOverdrawn is 0', () => {
+		expect(renderPerson([], aPerson)).to.equal(
+			'<p>Alex</p>\n<p>title: holiday</p>\n<p>location: Greece</p>\n<p>date: Fri May 10 2019</p>',
+		);
+	});
+});
