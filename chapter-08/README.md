@@ -6,7 +6,9 @@
 1. [8.2 Move Field](#move-field)
 1. [8.3 Move Statements into Function](#move-statements-into-function)
 1. [8.4 Move Statements to Callers](#move-statements-to-callers)
-
+1. [8.5 Replace Inline Code With Function Call](#replace-inline-code-with-function-call)
+1. [8.6 Slide Statements](#slide-statements)
+1. [8.7 Split Loop](#split-loop)
 
 ---
 
@@ -175,11 +177,14 @@ fuction emitPhotoData(outStream, photo) {
 8.5 인라인 코드를 함수 호출로 바꾸기
 
 ```js
-
+let appliesToMass = false;
+for (const s of states) {
+  if (s === 'MA') appliesToMass = true;
+}
 ```
 
 ```js
-
+appliesToMass = states.includes('MA');
 ```
 
 ### 배경(Motivation)
@@ -256,7 +261,6 @@ fuction emitPhotoData(outStream, photo) {
 종종 반복문 하나에서 두 가지 일을 수행하는 모습을 보게 되는데, 이렇게 하면 반복문을 수정할 때 두 가지 모두를 잘 이해하고 진행해야 한다. 반대로 각각의 반복문을 분리해두면 수정할 동작하나만 이해하면 된다.
 
 
-
 ### 절차
 1. 반복문을 복제해 두 개로 만든다.
 1. 반복문이 중복되어 생기는 부수효과를 파악해서 제거한다.
@@ -270,27 +274,71 @@ fuction emitPhotoData(outStream, photo) {
 **[⬆ back to top](#table-of-contents)**
 
 
-## 
-8. 
+## Replace Loop with Pipeline
+8.8 반복문을 파이프라인으로 바꾸기
 
 ```js
-
+const names = [];
+for (const i of input) {
+  if (i.job === 'programmer') {
+    names.push(i.name);
+  }
+}
 ```
 
 ```js
-
+const names = input
+  .filter(i => i.job === 'programmer')
+  .map(i => i.name)
 ```
 
 ### 배경(Motivation)
+언어는 계속해서 더 나은 구조를 제공하는 쪽으로 발전해왔다. 예컨대 파이프라인을 이용하면 처리 과정을 일련의 연산으로 표현할 수 있다. 이때 각 연산은 컬렉션을 입력받아 다른 컬렉션을 내뱉는다.  
+대표적인 연산은 `map`과 `filter`이다. `map`은 함수를 사용해 입력 컬렉션의 각 원소를 반환하고, `filter`는 또 다른 함수를 사용해 입력 컬렉션을 필터링해 부분 집합을 만든다. 이 부분 집합은 파이프라인의 다음 단계를 위한 컬렉션으로 쓰인다.
 
 
 
 #### 왜하는가?
-
+논리를 파이프라인으로 표현하면 이해가기 훨씬 쉬워진다. 객체가 파이프라인을 따라 흐르며 어떻게 처리되는지를 읽을 수 있기 때문이다.
 
 
 ### 절차
+1. 반복문에서 사용하는 컬렉션을 가리키는 변수를 하나 만든다.
+1. 반복문의 첫 줄부터 시작해서, 각각의 단위 행위를 적절한 컬렉션 파이프라인 연산으로 대체한다. 이때 컬렉션 파이프라인 연산은 `1.`에서 만든 반복문 컬렉션 변수에서 시작하여, 이전 연산의 결과를 기초로 연쇄적으로 수행한다. 하나를 대체할 때마다 테스트한다. 
+1. 반복문의 모든 동작을 대체했다면 반복문 자체를 지운다.
 
+### 코드
+
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## Remove Dead Code 
+8.9 죽은 코드 제거하기
+
+```js
+if (false) {
+  doSomethingThatUsedToMatter();
+}
+```
+
+```js
+// Remove Dead Code
+
+```
+
+### 배경(Motivation)
+쓰이지 않는 코드 스스로 '절대 호출되지 않으니 무시해도 되는 함수다'라는 신호를 주지 않는다. 그래서 운 나쁜 프로그래머는 이 코드의 동작을 이해하기 위해 코드를 수정했는데도, 기대한 결과가 나오지 않는 이유를 파악하기 위해 시간을 허비하게 된다.
+
+
+#### 왜하는가?
+사용되지 않는 코드가 있다면 그 소프트웨어의 동작을 이해하는데 커다란 걸림돌이 될 수 있다.
+
+
+### 절차
+1. 죽은 코드를 외부에서 참조할 수 있는 경우라면 혹시라도 호출하는 곳이 있는지 확인한다.
+1. 없다면 죽은 코드를 제거한다.
+1. 테스트한다.
 
 
 ### 코드
