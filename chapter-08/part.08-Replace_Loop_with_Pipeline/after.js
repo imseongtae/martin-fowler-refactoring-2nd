@@ -15,13 +15,12 @@ function acquireData(input) {
 		.slice(1)
 		.filter(line => line.trim() !== '')
 		.map(line => line.split(',')) // map 연산을 사용해 여러 줄짜리 데이터를 문자열 배열로 반환
-		.filter(record => record[1].trim() === 'India'); // 인도에 위치한 사무실 레코드를 뽑아낸다.
+		.filter(record => record[1].trim() === 'India') // 인도에 위치한 사무실 레코드를 뽑아낸다.
+		.map(record => ({ city: record[0].trim(), phone: record[2].trim() }));
+	//
 	for (const line of loopItems) {
-		if (line.trim() === '') continue;
 		const record = line;
-		// if (record[1].trim() === 'India') {
-		result.push({ city: record[0].trim(), phone: record[2].trim() });
-		// }
+		result.push(line);
 	}
 	return result;
 }
