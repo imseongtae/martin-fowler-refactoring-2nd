@@ -9,13 +9,15 @@ Chennai, India, +91 44 660 44766
 
 function acquireData(input) {
 	const lines = input.split('\n');
-	let firstLine = true;
+	// let firstLine = true; => slice 연산을 떠올리게 함
 	const result = [];
-	for (const line of lines) {
-		if (firstLine) {
-			firstLine = false;
-			continue;
-		}
+	// 컬렉션을 가리키는 별도의 변수 생성
+	const loopItems = lines.slice(1);
+	for (const line of loopItems) {
+		// if (firstLine) {
+		// 	firstLine = false;
+		// 	continue;
+		// }
 		if (line.trim() === '') continue;
 		const record = line.split(',');
 		if (record[1].trim() === 'India') {
