@@ -11,13 +11,17 @@ function acquireData(input) {
 	const lines = input.split('\n');
 	// let firstLine = true; => slice 연산을 떠올리게 함
 	const result = [];
-	const loopItems = lines.slice(1).filter(line => line.trim() !== '');
+	const loopItems = lines
+		.slice(1)
+		.filter(line => line.trim() !== '')
+		.map(line => line.split(',')) // map 연산을 사용해 여러 줄짜리 데이터를 문자열 배열로 반환
+		.filter(record => record[1].trim() === 'India'); // 인도에 위치한 사무실 레코드를 뽑아낸다.
 	for (const line of loopItems) {
 		if (line.trim() === '') continue;
-		const record = line.split(',');
-		if (record[1].trim() === 'India') {
-			result.push({ city: record[0].trim(), phone: record[2].trim() });
-		}
+		const record = line;
+		// if (record[1].trim() === 'India') {
+		result.push({ city: record[0].trim(), phone: record[2].trim() });
+		// }
 	}
 	return result;
 }
