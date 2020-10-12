@@ -308,7 +308,7 @@ const names = input
 1. 반복문의 모든 동작을 대체했다면 반복문 자체를 지운다.
 
 ### 코드
-
+[part.08-Replace_Loop_with_Pipeline](./part.08-Replace_Loop_with_Pipeline)
 
 **[⬆ back to top](#table-of-contents)**
 
