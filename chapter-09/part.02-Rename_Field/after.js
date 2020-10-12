@@ -1,14 +1,15 @@
-// 별도의 필드를 정의하고, 생성자와 접근자에서 둘을 구분해 사용하기
+// 생정자를 호출하는 곳을 수정했다면
+// 생성자에서 name을 사용할 수 있게 하던 코드를 제거
 class Organization {
 	constructor(data) {
-		// 생성자에서 'title'도 받아들일 수 있도록 조치, 이를 통해 title과 name 둘 다 사용할 수 있고, title이 우선함
-		this._title = data.title !== undefined ? data.title : data.name;
+		this._title = data.title; // name을 사용할 수 있게 하던 코드를 제거
 		this._country = data.country;
 	}
-	get name() {
+	// 생성자와 데이터의 수정에 걸맞게 접근자의 이름도 변경
+	get title() {
 		return this._title;
 	}
-	set name(aString) {
+	set title(aString) {
 		this._title = aString;
 	}
 	get country() {
