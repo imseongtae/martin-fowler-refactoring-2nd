@@ -8,8 +8,11 @@ function distanceTravelled(scenario, time) {
 	let secondaryTime = time - scenario.delay;
 	if (secondaryTime > 0) {
 		let primaryVelocity = primaryAcceleration * scenario.delay;
-		let acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
-		result += primaryVelocity * secondaryTime + 0.5 * acc * secondaryTime;
+		// 두 번째 변수를 용도에 적합한 이름으로 수정
+		let secondaryAcceleration =
+			(scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
+		result +=
+			primaryVelocity * secondaryTime + 0.5 * secondaryAcceleration * secondaryTime;
 	}
 	return result;
 }
