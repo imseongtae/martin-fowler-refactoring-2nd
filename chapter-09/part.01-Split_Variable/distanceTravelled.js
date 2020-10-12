@@ -1,12 +1,14 @@
 function distanceTravelled(scenario, time) {
 	let result;
-	let acc = scenario.primaryForce / scenario.mass;
+	// 변수에 새로운 이름을 지어주고, 불변으로 만듦
+	const primaryAcceleration = scenario.primaryForce / scenario.mass;
 	let primaryTime = Math.min(time, scenario.delay);
-	result = 0.5 * acc * primaryTime * primaryTime;
+	// 모든 참조의 이름을 변경
+	result = 0.5 * primaryAcceleration * primaryTime * primaryTime;
 	let secondaryTime = time - scenario.delay;
 	if (secondaryTime > 0) {
-		let primaryVelocity = acc * scenario.delay;
-		acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mas;
+		let primaryVelocity = primaryAcceleration * scenario.delay;
+		let acc = (scenario.primaryForce + scenario.secondaryForce) / scenario.mass;
 		result += primaryVelocity * secondaryTime + 0.5 * acc * secondaryTime;
 	}
 	return result;
