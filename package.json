@@ -8,6 +8,7 @@
     "test:06": "NOED_ENV=test mocha $(find ./chapter-06/ -name '*.spec.js') -w",
     "test:07": "NOED_ENV=test mocha $(find ./chapter-07/ -name '*.spec.js') -w",
     "test:08": "NOED_ENV=test mocha $(find ./chapter-08/ -name '*.spec.js') -w",
+    "test:09": "NOED_ENV=test mocha $(find ./chapter-09/ -name '*.spec.js') -w",
     "execute": "node ./chapter-08/part.03-Move_Statements_into_Function/before.js"
   },
   "repository": {
