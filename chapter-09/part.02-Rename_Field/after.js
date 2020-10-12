@@ -19,7 +19,7 @@ class Organization {
 	}
 }
 
-// organization 레코드를 클래스로 캡슐화
-const organization = new Organization({ name: 'Acme Gooseberries', country: 'GB' });
+// 생성자를 호출하는 곳에서 title을 사용하도록 하나씩 수정
+const organization = new Organization({ title: 'Acme Gooseberries', country: 'GB' });
 
 module.exports = organization;
