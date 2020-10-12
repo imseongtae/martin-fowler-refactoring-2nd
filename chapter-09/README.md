@@ -4,6 +4,7 @@
 
 ## table of contents
 1. [Split Variable](#split-variable)
+1. [Rename Field](#rename-field)
 
 
 ---
@@ -14,12 +15,17 @@
 
 
 ```js
-
+let temp = 2 * (height + width);
+console.log(temp)
+temp = height * width
+console.log(temp)
 ```
 
 ```js
-// Remove Dead Code
-
+const perimeter = 2 * (height + width);
+console.log(perimeter)
+const area = height * width
+console.log(area)
 ```
 
 ### 배경(Motivation)
@@ -39,6 +45,46 @@
 
 
 ### 코드
+- [part.01-Split_Variable](./part.01-Split_Variable)
+
+
+**[⬆ back to top](#table-of-contents)**
+
+
+
+## Rename Field
+9.2 필드 이름 바꾸기
+
+```js
+class Organization {
+  get name() {...}
+}
+```
+
+```js
+class Organization {
+  get title() {...}
+}
+```
+
+### 배경(Motivation)
+이름은 중요하다. 그리고 프로그램 곳곳에서 쓰이는 레코드 구조체의 필드 이름들은 특히 더 중요하다. 
+
+
+#### 왜하는가?
+데이터 구조가 중요한 만큼 깔끔하게 관리하는 과정에서 레코드의 필드 이름을 바꾸고 싶을 수 있는데, 클래스에서도 마찬가지이다. 게터와 세터 메서드는 클래스 사용자 입장에서는 필드와 다를 바 없다. 따라서 게터와 세터 이름 바꾸기도 레코드 구조체의 필드 이름 바꾸기와 똑같이 중요하다.
+
+
+### 절차
+1. 레코드의 유효 범위가 제한적이라면 필드에 접근하는 모든 코드를 수정한 후 테스트한다. 이후 단계는 필요 없다.
+1. 레코드가 캡슐화되지 않았다면 우선 레코드를 캡슐화한다.1
+1. 캡슐화된 객체 안의 private 필드명을 변경하고, 그에 맞게 내부 메서드들을 수정한다.
+1. 테스트한다.
+1. 생성자의 매개변수 중 필드와 이름이 겹치는 게 있다면 함수 선언 바꾸기로 변경한다.
+1. 접근자들의 이름도 바꿔준다.
+
+### 코드
+- [part.02-Rename_Field](./part.02-Rename_Field)
 
 
 **[⬆ back to top](#table-of-contents)**
