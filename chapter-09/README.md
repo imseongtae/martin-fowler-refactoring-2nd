@@ -7,6 +7,10 @@
 1. [Rename Field](#rename-field)
 
 
+**단축키**  
+`cmd + shift + F`
+
+
 ---
 
 
