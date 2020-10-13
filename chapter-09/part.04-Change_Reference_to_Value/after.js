@@ -26,6 +26,12 @@ class TelephoneNumber {
 		this._number = number;
 		this._areaCode = areaCode;
 	}
+	equals(other) {
+		// 값 객체로 인정받으려면 동치성을 값 기반으로 평가해야 한다.
+		// 참조 기반 동치성을 값 기반 동치성으로 대체
+		if (!(other instanceof TelephoneNumber)) return false;
+		return this.areaCode === other.areaCode && this.number === other.number;
+	}
 	get areaCode() {
 		return this._areaCode;
 	}
