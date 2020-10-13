@@ -17,6 +17,11 @@ class Person {
 }
 
 class TelephoneNumber {
+	constructor(areaCode, number) {
+		// 전화번호를 불변으로 만들기
+		this._number = number;
+		this._areaCode = areaCode;
+	}
 	get areaCode() {
 		return this._areaCode;
 	}
