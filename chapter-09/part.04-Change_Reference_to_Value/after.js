@@ -6,7 +6,9 @@ class Person {
 		return this._telephoneNumber.areaCode;
 	}
 	set officeAreaCode(arg) {
-		this._telephoneNumber.areaCode = arg;
+		// this._telephoneNumber.areaCode = arg;
+		// 세터를 호출하는 곳에서 전화번호를 매번 다시 대입하도록 변경
+		this._telephoneNumber = new TelephoneNumber(arg, this.officeNumber);
 	}
 	get officeNumber() {
 		return this._telephoneNumber.number;
