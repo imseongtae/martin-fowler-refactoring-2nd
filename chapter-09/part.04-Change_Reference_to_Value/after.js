@@ -14,7 +14,9 @@ class Person {
 		return this._telephoneNumber.number;
 	}
 	set officeNumber(arg) {
-		this._telephoneNumber.number = arg;
+		// officeNumber 필드에도 같은 작업을 진행해줌
+		// this._telephoneNumber.number = arg;
+		this._telephoneNumber = new TelephoneNumber(this.officeAreaCode, arg);
 	}
 }
 
