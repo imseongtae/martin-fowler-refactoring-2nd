@@ -5,13 +5,13 @@
 ## table of contents
 1. [Split Variable](#split-variable)
 1. [Rename Field](#rename-field)
-
-
-**단축키**  
-`cmd + shift + F`
+1. [Replace Derived Variable with Query](#replace-derived-variable-with-query)
 
 
 ---
+
+**단축키**  
+`cmd + shift + F`
 
 
 
@@ -89,6 +89,42 @@ class Organization {
 
 ### 코드
 - [part.02-Rename_Field](./part.02-Rename_Field)
+
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## Replace Derived Variable with Query
+
+
+```js
+
+```
+
+```js
+
+```
+
+### 배경(Motivation)
+가변 데이터는 소프트에어에 문제를 일으키는 가장 큰 골칫거리에 속한다. 예컨대 한쪽에서 수정한 코드가 연쇄효과를 일으켜 다른 쪽 코드에 원인을 찾기 어려운 어려운 문제를 야기하기도 한다. 그래서 가변 데이터를 배제하기 어려운 현실을 감안하여, 가변 데이터의 유효범위를 가능한 좁혀야 한다고 힘주어 주장해본다.
+
+
+
+#### 왜하는가?
+
+
+
+### 절차
+1. 변수 값이 갱신되는 지점을 모두 찾는다. 필요하면 변수 쪼개기를 활용해 각 갱신 지점에서 변수를 분리한다.
+1. 해당 변수의 값을 계산해주는 함수를 만든다.
+1. 해당 변수가 사용되는 모든 곳에 어서션을 추가하여 함수의 계산 결과가 변수의 값과 같은지 확인한다.
+1. 테스트한다.
+1. 변수를 읽는 코드를 모두 함수 호출로 대체한다.
+1. 테스트한다.
+1. 변수를 선언하고, 갱신하는 코드를 '죽은 코드 제거하기'로 없앤다.
+
+### 코드
+- [part.03-Replace_Derived_Variable_with_Query](./part.03-Replace_Derived_Variable_with_Query)
 
 
 **[⬆ back to top](#table-of-contents)**
