@@ -7,6 +7,7 @@
 1. [Rename Field](#rename-field)
 1. [Replace Derived Variable with Query](#replace-derived-variable-with-query)
 1. [Change Reference to Value](#change-reference-to-value)
+1. [Change Value to Reference](#change-value-to-reference)
 1. [Replace Magic Literal](#replace-magic-literal)
 
 ---
@@ -177,6 +178,35 @@ class Product {
 **[⬆ back to top](#table-of-contents)**
 
 
+## Change Value to Reference
+9.5 값을 참조로 바꾸기
+
+```js
+let customer = new Customer(customerData);
+```
+
+```js
+let customer = customerRepository.get(customerData.id);
+```
+
+### 배경(Motivation)
+논리적으로 같은 데이터를 물리적으로 복제해 사용할 때 가장 크게 문제되는 상황은 그 데이터를 갱신해야 할 때이다. 모든 복제본을 찾아서 갱신해야 하며, 하나라도 놓치면 데이터 일관성이 깨진다. 이런 상황이라면 복제된 데이터들을 모두 참조로 바꿔주는 게 좋다. 데이터가 하나면 갱신된 내용이 해당 고객의 주문 모두에 곧바로 반영되기 때문이다.
+
+#### 왜하는가?
+논리적으로 같은 데이터를 물리적으로 복제해 사용할 때, 모든 복제본을 찾아서 갱신해야 하며, 하나라도 놓치면 데이터 일관성이 깨진다.
+
+
+### 절차
+1. 같은 부류에 속하는 객체들을 보관할 저장소를 만든다.(이미 있다면 생략)
+1. 생성자에서 이 부류의 객체들 중 특정 객체를 정확히 찾아내는 방법이 있는지 확인한다.
+1. 호스트 객체의 생성자들을 수정하여 필요한 객체를 이 저장소에서 찾도록한다. 하나 수정할 때마다 테스트한다.
+
+### 코드
+
+
+**[⬆ back to top](#table-of-contents)**
+
+
 ## Replace Magic Literal
 9.6 매직 리터럴 바꾸기
 
@@ -187,7 +217,7 @@ function potentialEnergy(mass, height) {
 ```
 
 ```js
-// 표준 중력의 의미를 명확히 드러내는 상수로 변경
+// 표준 중력의 의미(수학적 의미)를 명확히 드러내는 상수로 변경
 const STANDARD_GRAVITY = 9.81;
 function potentialEnergy(mass, height) {
   return mass * STANDARD_GRAVITY * height;
@@ -207,6 +237,7 @@ function potentialEnergy(mass, height) {
 1. 찾은 곳 각각에서 리터럴이 새 상수와 똑같은 의미로 쓰였는지 확인하여, 같은 의미라면, 상수로 대체한 후 테스트한다.
 
 ### 코드
+[part.05-Change_Value_to_Reference](./part.05-Change_Value_to_Reference)
 
 
 **[⬆ back to top](#table-of-contents)**
