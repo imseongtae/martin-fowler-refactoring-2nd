@@ -1,6 +1,6 @@
 function disabilityAmount(anEmployee) {
-	if (anEmployee.seniority < 2) return 0;
-	if (anEmployee.monthsDisabled > 12) return 0;
+	// 조건 검사가 순차적인 경우 or 연산자를 이용하여 조건식 통합
+	if (anEmployee.seniority < 2 || anEmployee.monthsDisabled > 12) return 0;
 	if (anEmployee.isPartTime) return 0;
 	// compute the disability amount, 장애 수당 계산
 }
