@@ -23,7 +23,11 @@ function createBird(bird) {
 }
 
 // 종별 서브클래스
-class EuropeanSwallow extends Bird {}
+class EuropeanSwallow extends Bird {
+	get plumage() {
+		return 'average';
+	}
+}
 class AfricanSwallow extends Bird {}
 class NorwegianBlueParrot extends Bird {}
 
@@ -35,7 +39,8 @@ class Bird {
 	get plumage() {
 		switch (this.type) {
 			case 'EuropeanSwallow':
-				return 'average';
+				// EuropeanSwallow 절을 서브클래스에서 오버라이드하고, 슈퍼클래스의 조건문에 throw 추가
+				throw '오류 발생';
 			case 'AfricanSwallow':
 				return this.numberOfCoconuts > 2 ? 'tired' : 'average';
 			case 'NorwegianBlueParrot':
