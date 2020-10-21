@@ -1,10 +1,7 @@
 // 여름철이면 할인율이 달라지는 서비스의 요금을 계산하는 코드
 function getCharge(aDate, plan, quantity) {
-	let charge;
-	// 여름철을 계산하는 함수
-	if (summer()) charge = summerCharge();
-	else charge = regularCharge();
-
+	// 전체 조건문을 삼항연산자로 변경할 수도 있음
+	const charge = summer() ? summerCharge() : regularCharge();
 	return charge;
 
 	// 여름철을 계산하는 조건식을 별도 함수로 추출
