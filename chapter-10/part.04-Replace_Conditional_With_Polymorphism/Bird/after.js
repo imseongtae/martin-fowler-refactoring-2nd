@@ -1,11 +1,31 @@
+// 객체를 얻을 때 팩토리 함수를 사용하도록 수정
 function plumages(bird) {
-	// return new Map(birds.map(b => [b.name, plumage(b)]));
-	return new Bird(bird).plumage;
+	// return new Bird(bird).plumage;
+	return createBird(bird).plumage;
 }
 function speeds(bird) {
-	// return new Map(birds.map(b => [b.name, airSpeedVelocity(b)]));
-	return new Bird(bird).airSpeedVelocity;
+	// return new Bird(bird).airSpeedVelocity;
+	return createBird(bird).airSpeedVelocity;
 }
+
+// 서브클래스의 인스턴스를 만들어줄 팩터리 함수
+function createBird(bird) {
+	switch (bird.type) {
+		case 'EuropeanSwallow':
+			return new EuropeanSwallow(bird);
+		case 'AfricanSwallow':
+			return new AfricanSwallow(bird);
+		case 'NorweigianBlueParrot':
+			return new NorwegianBlueParrot(bird);
+		default:
+			return new Bird(bird);
+	}
+}
+
+// 종별 서브클래스
+class EuropeanSwallow extends Bird {}
+class AfricanSwallow extends Bird {}
+class NorwegianBlueParrot extends Bird {}
 
 // plumage, airSpeedVelocity 함수를 클래스로 묶기
 class Bird {
