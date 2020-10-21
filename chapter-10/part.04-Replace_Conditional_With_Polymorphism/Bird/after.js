@@ -22,14 +22,22 @@ function createBird(bird) {
 	}
 }
 
-// 종별 서브클래스
+// 종별 서브클래스에서 슈퍼클래스의 조건절을 오버라이드
 class EuropeanSwallow extends Bird {
 	get plumage() {
 		return 'average';
 	}
 }
-class AfricanSwallow extends Bird {}
-class NorwegianBlueParrot extends Bird {}
+class AfricanSwallow extends Bird {
+	get plumage() {
+		return this.numberOfCoconuts > 2 ? 'tired' : 'average';
+	}
+}
+class NorwegianBlueParrot extends Bird {
+	get plumage() {
+		return this.voltage > 100 ? 'scorched' : 'beautiful';
+	}
+}
 
 // plumage, airSpeedVelocity 함수를 클래스로 묶기
 class Bird {
@@ -37,17 +45,8 @@ class Bird {
 		Object.assign(this, birdObject);
 	}
 	get plumage() {
-		switch (this.type) {
-			case 'EuropeanSwallow':
-				// EuropeanSwallow 절을 서브클래스에서 오버라이드하고, 슈퍼클래스의 조건문에 throw 추가
-				throw '오류 발생';
-			case 'AfricanSwallow':
-				return this.numberOfCoconuts > 2 ? 'tired' : 'average';
-			case 'NorwegianBlueParrot':
-				return this.voltage > 100 ? 'scorched' : 'beautiful';
-			default:
-				return 'unknown';
-		}
+		// 슈퍼클래스의 메서드는 기본동작용으로 남겨놓는다.
+		return 'unknown';
 	}
 	get airSpeedVelocity() {
 		switch (this.type) {
