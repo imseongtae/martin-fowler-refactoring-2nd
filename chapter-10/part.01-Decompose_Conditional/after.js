@@ -3,7 +3,7 @@ function getCharge(aDate, plan, quantity) {
 	let charge;
 	// 여름철을 계산하는 함수
 	if (summer()) charge = summerCharge();
-	else charge = quantity * plan.regularRate + plan.regularServiceCharge;
+	else charge = regularCharge();
 
 	return charge;
 
@@ -14,6 +14,10 @@ function getCharge(aDate, plan, quantity) {
 	// 여름철을 계산하는 조건이 만족할 경우 진행되는 로직 함수로 추출
 	function summerCharge() {
 		return quantity * plan.summerRate;
+	}
+	// else(여름철이 아닐 경우 진행되는) 절도 별도 함수로 추출
+	function regularCharge() {
+		return quantity * plan.regularRate + plan.regularServiceCharge;
 	}
 }
 
