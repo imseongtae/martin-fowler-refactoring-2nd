@@ -31,8 +31,6 @@ class Rating {
 		let result = 1;
 		if (this.history.length < 5) result += 4;
 		result += this.history.filter(v => v.profit < 0).length;
-		// 변형 동작을 분리
-		// if (this.voyage.zone === 'china' && this.hasChinaHistory) result -= 2;
 		return Math.max(result, 0);
 	}
 	// 수익 요인
@@ -40,12 +38,11 @@ class Rating {
 		let result = 2;
 		if (this.voyage.zone === 'china') result += 1;
 		if (this.voyage.zone === 'east­indies') result += 1;
-		// 슈퍼클래스에서 문장을 호출한 곳으로 옮기기 적용
 		result += this.historyLengthFactor;
 		result += this.voyageLengthFactor;
 		return result;
 	}
-	// 슈퍼클래스에서 문장을 호출한 곳으로 옮기기 적용, 함수 이름을 변경
+	// 문장을 호출한 곳으로 옮기기 적용, 함수 이름을 변경
 	get voyageLengthFactor() {
 		return this.voyage.length > 14 ? -1 : 0;
 	}
@@ -53,30 +50,25 @@ class Rating {
 	get historyLengthFactor() {
 		return this.history.length > 8 ? 1 : 0;
 	}
-	// 중국을 경유하는가?
-	get hasChinaHistory() {
-		// some() 메서드를 통해 배열 안 요소가 주어진 판별 함수를 통과하는지 테스트
-		return this.history.some(v => 'china' === v.zone);
-	}
 }
 
-// 변형 동작을 담을 빈 서브클래스를 생성
+// 중국 항해 경험이 있을 때를 담당하는 클래스, 기본 클래스와 차이만 담음
 class ExperiencedChinaRating extends Rating {
-	// 서브클래스에서 captainHistoryRisk 메서드를 오버라이드
 	get captainHistoryRisk() {
 		const result = super.captainHistoryRisk - 2;
 		return Math.max(result, 0);
 	}
-	// ExperiencedChinaRating 서브클래스에서 voyageAndHistoryLengthFactor 메서드 오버라이드
-	get voyageAndHistoryLengthFactor() {
+	// 항해 거리요인을 계산할 때 더하는 3점을 전체 결과를 계산하는 쪽으로 옮기기
+	get voyageProfitFactor() {
+		return super.voyageProfitFactor + 3;
+	}
+	// 함수 이름을 변경
+	get voyageLengthFactor() {
 		let result = 0;
-		result += 3;
-		// result += this.historyLengthFactor; // 슈퍼클래스에서 문장을 호출한 곳으로 옮기기 적용
 		if (this.voyage.length > 12) result += 1;
 		if (this.voyage.length > 18) result -= 1;
 		return result;
 	}
-	// 이력 길이를 수정하는 부분을 함수로 추출
 	get historyLengthFactor() {
 		return this.history.length > 10 ? 1 : 0;
 	}
