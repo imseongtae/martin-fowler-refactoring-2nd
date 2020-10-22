@@ -1,7 +1,6 @@
 // 투자 등급
 // rating 함수는 위험 요인과 수익 요인을 종합하여 요청한 항해의 최종등급을 계산
 function rating(voyage, history) {
-	// return new Rating(voyage, history).value;
 	// 생성자를 호출하는 코드 대신 이 팩터리 함수를 사용하도록 수정
 	return createRating(voyage, history);
 }
@@ -32,7 +31,8 @@ class Rating {
 		let result = 1;
 		if (this.history.length < 5) result += 4;
 		result += this.history.filter(v => v.profit < 0).length;
-		if (this.voyage.zone === 'china' && this.hasChinaHistory) result -= 2;
+		// 변형 동작을 분리
+		// if (this.voyage.zone === 'china' && this.hasChinaHistory) result -= 2;
 		return Math.max(result, 0);
 	}
 	// 수익 요인
@@ -59,7 +59,13 @@ class Rating {
 }
 
 // 변형 동작을 담을 빈 서브클래스를 생성
-class ExperiencedChinaRating extends Rating {}
+class ExperiencedChinaRating extends Rating {
+	// 서브클래스에서 captainHistoryRisk 메서드를 오버라이드
+	get captainHistoryRisk() {
+		const result = super.captainHistoryRisk - 2;
+		return Math.max(result, 0);
+	}
+}
 
 // 적절한 변형 클래스를 반환해줄 팩터리 함수를 생성
 function createRating(voyage, history) {
