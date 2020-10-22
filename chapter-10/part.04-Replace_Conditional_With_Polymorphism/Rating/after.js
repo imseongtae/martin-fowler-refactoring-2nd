@@ -40,15 +40,14 @@ class Rating {
 		let result = 2;
 		if (this.voyage.zone === 'china') result += 1;
 		if (this.voyage.zone === 'east­indies') result += 1;
-		result += this.voyageAndHistoryLengthFactor;
+		// 슈퍼클래스에서 문장을 호출한 곳으로 옮기기 적용
+		result += this.historyLengthFactor;
+		result += this.voyageLengthFactor;
 		return result;
 	}
-	// 추출한 조건부 블록, 서브 클래스 구성을 마무리하는 동안만 사용할 임시 함수
-	get voyageAndHistoryLengthFactor() {
-		let result = 0;
-		result += this.historyLengthFactor; // 이력 길이를 수정하는 부분을 함수로 추출
-		if (this.voyage.length > 14) result -= 1;
-		return result;
+	// 슈퍼클래스에서 문장을 호출한 곳으로 옮기기 적용, 함수 이름을 변경
+	get voyageLengthFactor() {
+		return this.voyage.length > 14 ? -1 : 0;
 	}
 	// 이력 길이를 수정하는 부분을 함수로 추출
 	get historyLengthFactor() {
@@ -72,7 +71,7 @@ class ExperiencedChinaRating extends Rating {
 	get voyageAndHistoryLengthFactor() {
 		let result = 0;
 		result += 3;
-		result += this.historyLengthFactor;
+		// result += this.historyLengthFactor; // 슈퍼클래스에서 문장을 호출한 곳으로 옮기기 적용
 		if (this.voyage.length > 12) result += 1;
 		if (this.voyage.length > 18) result -= 1;
 		return result;
