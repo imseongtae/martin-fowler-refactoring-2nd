@@ -236,4 +236,27 @@ class NorwegianBlueParrot {
 [part.04-Replace_Conditional_With_Polymorphism](./part.04-Replace_Conditional_With_Polymorphism)
 
 
+### 문법
+
+#### some
+`some()` 메서드는 배열 안의 어떤 요소라도 주어진 판별 함수를 통과하는지 테스트하여 `true`, `false` 반환
+
+```js
+const array = [1, 3];
+// checks whether an element is even
+const even = (element) => element % 2 === 0;
+
+console.log(array.some(even));
+// expected output: true
+```
+
+#### Math.max
+입력값으로 받은 0개 이상의 숫자 중 가장 큰 숫자를 반환
+
+```js
+Math.max(10, 20);   //  20
+Math.max(-10, -20); // -10
+Math.max(-10, 20);  //  20
+```
+
 **[⬆ back to top](#table-of-contents)**
