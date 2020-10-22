@@ -36,10 +36,17 @@ class Rating {
 		return Math.max(result, 0);
 	}
 	// 수익 요인
+	// voyageProfitFactor에서 변형 동작을 분리하기 위해 해당 조건부 블록 전체를 함수로 추출
 	get voyageProfitFactor() {
 		let result = 2;
 		if (this.voyage.zone === 'china') result += 1;
 		if (this.voyage.zone === 'east­indies') result += 1;
+		result += this.voyageAndHistoryLengthFactor;
+		return result;
+	}
+	// 추출한 조건부 블록, 서브 클래스 구성을 마무리하는 동안만 사용할 임시 함수
+	get voyageAndHistoryLengthFactor() {
+		let result = 0;
 		if (this.voyage.zone === 'china' && this.hasChinaHistory) {
 			result += 3;
 			if (this.history.length > 10) result += 1;
