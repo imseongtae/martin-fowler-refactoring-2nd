@@ -1,7 +1,9 @@
 // 투자 등급
 // rating 함수는 위험 요인과 수익 요인을 종합하여 요청한 항해의 최종등급을 계산
 function rating(voyage, history) {
-	return new Rating(voyage, history).value;
+	// return new Rating(voyage, history).value;
+	// 생성자를 호출하는 코드 대신 이 팩터리 함수를 사용하도록 수정
+	return createRating(voyage, history);
 }
 
 // 다형성을 적용하기 위해 세부 계산 함수들을 Rating 클래스로 묶기
@@ -54,6 +56,16 @@ class Rating {
 		// some() 메서드를 통해 배열 안 요소가 주어진 판별 함수를 통과하는지 테스트
 		return this.history.some(v => 'china' === v.zone);
 	}
+}
+
+// 변형 동작을 담을 빈 서브클래스를 생성
+class ExperiencedChinaRating extends Rating {}
+
+// 적절한 변형 클래스를 반환해줄 팩터리 함수를 생성
+function createRating(voyage, history) {
+	if (voyage.zone === 'china' && history.some(v => 'china' === v.zone))
+		return new ExperiencedChinaRating(voyage, history);
+	else return new Rating(voyage, history);
 }
 
 module.exports = rating;
