@@ -1,3 +1,5 @@
+// 투자 등급
+// rating 함수는 위험 요인과 수익 요인을 종합하여 요청한 항해의 최종등급을 계산
 function rating(voyage, history) {
 	const vpf = voyageProfitFactor(voyage, history);
 	const vr = voyageRisk(voyage);
@@ -6,6 +8,7 @@ function rating(voyage, history) {
 	else return 'B';
 }
 
+// 항해 경로 위험요소
 function voyageRisk(voyage) {
 	let result = 1;
 	if (voyage.length > 4) result += 2;
@@ -14,6 +17,7 @@ function voyageRisk(voyage) {
 	return Math.max(result, 0);
 }
 
+// 선장의 항해 이력 위험요소
 function captainHistoryRisk(voyage, history) {
 	let result = 1;
 	if (history.length < 5) result += 4;
@@ -22,10 +26,12 @@ function captainHistoryRisk(voyage, history) {
 	return Math.max(result, 0);
 }
 
+// 중국을 경유하는가?
 function hasChina(history) {
 	return history.some(v => 'china' === v.zone);
 }
 
+// 수익 요인
 function voyageProfitFactor(voyage, history) {
 	let result = 2;
 	if (voyage.zone === 'china') result += 1;
