@@ -47,15 +47,8 @@ class Rating {
 	// 추출한 조건부 블록, 서브 클래스 구성을 마무리하는 동안만 사용할 임시 함수
 	get voyageAndHistoryLengthFactor() {
 		let result = 0;
-		if (this.voyage.zone === 'china' && this.hasChinaHistory) {
-			result += 3;
-			if (this.history.length > 10) result += 1;
-			if (this.voyage.length > 12) result += 1;
-			if (this.voyage.length > 18) result -= 1;
-		} else {
-			if (this.history.length > 8) result += 1;
-			if (this.voyage.length > 14) result -= 1;
-		}
+		if (this.history.length > 8) result += 1;
+		if (this.voyage.length > 14) result -= 1;
 		return result;
 	}
 	// 중국을 경유하는가?
@@ -71,6 +64,15 @@ class ExperiencedChinaRating extends Rating {
 	get captainHistoryRisk() {
 		const result = super.captainHistoryRisk - 2;
 		return Math.max(result, 0);
+	}
+	// ExperiencedChinaRating 서브클래스에서 voyageAndHistoryLengthFactor 메서드 오버라이드
+	get voyageAndHistoryLengthFactor() {
+		let result = 0;
+		result += 3;
+		if (this.history.length > 10) result += 1;
+		if (this.voyage.length > 12) result += 1;
+		if (this.voyage.length > 18) result -= 1;
+		return result;
 	}
 }
 
