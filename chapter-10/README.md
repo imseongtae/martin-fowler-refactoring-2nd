@@ -9,6 +9,7 @@
 1. [CONSOLIDATE CONDITIONAL EXPRESSION](#CONSOLIDATE-CONDITIONAL-EXPRESSION)
 1. [REPLACE NESTED CONDITIONAL WITH GUARD CLAUSES](#REPLACE-NESTED-CONDITIONAL-WITH-GUARD-CLAUSES)
 1. [REPLACE CONDITIONAL WITH POLYMORPHISM](#REPLACE-CONDITIONAL-WITH-POLYMORPHISM)
+1. [INTRODUCE ASSERTION](#Introduce-Assertion)
 
 
 ---
@@ -258,5 +259,45 @@ Math.max(10, 20);   //  20
 Math.max(-10, -20); // -10
 Math.max(-10, 20);  //  20
 ```
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## INTRODUCE ASSERTION
+10.6 어서션 추가하기
+
+```js
+if (this.discountRate)
+  base = base - (this.discountRate * base)
+```
+
+```js
+assert(this.discountRate >= 0);
+if (this.discountRate)
+  base = base - (this.discountRate * base)
+```
+
+### 배경(Motivation)
+특정 조건이 참일 때만 동작하는 코드 영역이 있을 수 있다. 이때 코드에 항상 명시적으로 기술되어 있지 않아서
+
+
+#### 왜하는가?
+소통 측면에서 어서션은 매력적이다.
+
+##### 어서션(Assertion)
+- 어서션은 항상 참이라고 가정하는 조건부 문장
+- 어서션 실패는 시스템의 다른 부분에서는 절대 검사하지 않아야 함
+- 어서션 유무가 프로그램의 기능 정상 동작에 영향을 주지 않도록 작성되어야 함
+- 어서션의 실패는 프로그램의 잘못
+
+> 어서션은 프로그램이 어떤 상태임을 가정한 채 실행되는지를 다른 개발자에게 알려주는 훌륭한 소통 도구인 것이다. 디버깅하기도 편하고 이런 소통 수단으로서의 가치도 있어서, 나는 추적하던 버그를 잡은 뒤에도 어서션을 코드에 남겨두곤 한다.  
+
+
+### 절차
+1. 참이라고 가정하는 조건이 보이면 그 조건을 명시하는 어서션을 추가한다.
+
+
+### 코드
+[part.06-Introduce_Assertion](./part.06-Introduce_Assertion)
 
 **[⬆ back to top](#table-of-contents)**
