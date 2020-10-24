@@ -1,4 +1,4 @@
-function findVillain(people) {
+function checkForMiscreants(people) {
 	// 생략(중요하지 않은 코드)
 	let found = false;
 	for (const p of people) {
@@ -20,4 +20,4 @@ function sendAlert(villain) {
 	return villain;
 }
 
-module.exports = findVillain;
+module.exports = checkForMiscreants;
