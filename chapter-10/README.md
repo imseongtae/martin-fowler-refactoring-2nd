@@ -10,7 +10,7 @@
 1. [REPLACE NESTED CONDITIONAL WITH GUARD CLAUSES](#REPLACE-NESTED-CONDITIONAL-WITH-GUARD-CLAUSES)
 1. [REPLACE CONDITIONAL WITH POLYMORPHISM](#REPLACE-CONDITIONAL-WITH-POLYMORPHISM)
 1. [INTRODUCE ASSERTION](#Introduce-Assertion)
-
+1. [Replace Control Flag with Break](#Replace-Control-Flag-with-Break)
 
 ---
 
@@ -299,5 +299,69 @@ if (this.discountRate)
 
 ### 코드
 [part.06-Introduce_Assertion](./part.06-Introduce_Assertion)
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## Replace Control Flag with Break
+10.7 제어 플래그를 탈출문으로 바꾸기
+
+```js
+for (const p of people) {
+  if (!found) {
+    if (p === '조커') {
+      sendAlert();
+      found = true;
+    }
+  }
+}
+```
+
+```js
+for (const p of people) {
+  if (p === '조커') {
+    sendAlert();
+    break;
+  }
+}
+```
+
+### 배경(Motivation)
+제어 플래그란 코드의 동작을 변경하는 데 사용되는 변수를 말하며, 어딘가에서 값을 계산해 제어 플래그에 설정한 후 다른 어딘가의 조건문에서 검사하는 형태로 쓰인다. 
+리팩터링으로 충분히 간소화할 수 있음에도 복잡하게 작성된 코드에서 흔히 나타난다.
+
+> 마틴 파울러는 제어 변수를 항상 악취로 본다.
+
+#### 왜하는가?
+제어 변수 대신 `break`, `return`을 사용해 구문을 간소화하기 위해
+
+
+### 절차
+1. 제어 플래그를 사용하는 코드를 함수로 추출할지를 고려한다.
+1. 제어플래그를 갱신하는 코드 각각을 적절한 제어문으로 바꾼다. 하나 바꿀 때마다 테스트한다.
+1. 모두 수정했다면 제어 플래그를 제거한다.
+
+
+### 문법
+`some`과 `includes`를 사용하여 코드를 줄임
+
+```js
+for (const p of people) {
+  if (p === 'joker') {
+    return sendAlert();
+  }
+  if (p === 'ham') {
+    return sendAlert();
+  }
+}
+```
+
+```js
+if (people.some(p => ['joker', 'ham'].includes(p))) return sendAlert();
+```
+
+### 
+[part.07-Replace_Control_Flag_with_Break](./part.07-Replace_Control_Flag_with_Break)
+
 
 **[⬆ back to top](#table-of-contents)**
