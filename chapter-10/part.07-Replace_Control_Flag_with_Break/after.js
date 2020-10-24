@@ -6,13 +6,13 @@ function checkForMiscreants(people) {
 		if (!found) {
 			if (p === 'joker') {
 				// found = true;
-				// 제어 변수가 참이면 반복문에서는 할 일이 없으므로 함수에서 아예 빠져나온다
 				sendAlert(p);
 				return;
 			}
 			if (p === 'ham') {
-				found = true;
-				return sendAlert(p);
+				// 제어 변수가 갱신되는 곳은 같은 과정을 진행
+				sendAlert(p);
+				return;
 			}
 		}
 	}
