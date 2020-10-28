@@ -9,6 +9,7 @@
 1. [CONSOLIDATE CONDITIONAL EXPRESSION](#CONSOLIDATE-CONDITIONAL-EXPRESSION)
 1. [REPLACE NESTED CONDITIONAL WITH GUARD CLAUSES](#REPLACE-NESTED-CONDITIONAL-WITH-GUARD-CLAUSES)
 1. [REPLACE CONDITIONAL WITH POLYMORPHISM](#REPLACE-CONDITIONAL-WITH-POLYMORPHISM)
+1. [INTRODUCE SPECIAL CASE](#INTRODUCE-SPECIAL-CASE)
 1. [INTRODUCE ASSERTION](#Introduce-Assertion)
 1. [Replace Control Flag with Break](#Replace-Control-Flag-with-Break)
 
@@ -261,6 +262,47 @@ Math.max(-10, 20);  //  20
 ```
 
 **[⬆ back to top](#table-of-contents)**
+
+
+## INTRODUCE SPECIAL CASE
+10.5 특이 케이스 추가하기
+
+```js
+if (aCustomer === '미확인 고객') customerName = '거주자'
+```
+
+```js
+class UnknownCustomer {
+  get name() { return '거주자' }
+}
+```
+
+### 배경(Motivation)
+
+
+
+#### 왜하는가?
+- 데이터 구조의 특정 값을 확인한 후 똑같은 동작을 수행하는 코드의 중복을 줄여서 효율을 높이기 위해
+- 특수한 경우의 공통 동작을 요소 하나에 모아서 사용하는 특이 케이스 패턴이 있는데, 데이터 구조의 특정 값을 확인한 후 똑같은 동작을 수행하는 코드가 있을 경우 적용하면 좋은 매커니즘이다.이 패턴을 활용하면 특이 케이스를 단순한 함수 호출로 바꿀 수 있다.
+
+
+### 절차
+1. 컨테이너에 특이 케이스인지 검사하는 속성을 추가하고, false를 반환하게 함
+1. 특이 케이스 객체를 만든다. 이 객체는 특이 케이스인지를 검사하는 속성만 포함하여, 이 속성은 true를 반환하게 한다.
+1. 클라이언트에서 특이 케이스인지를 검사하는 코드를 함수로 추출한다. 모든 클라이언트가 값을 직접 비교하는 대신 방금 추출한 함수를 사용하도록 고친다.
+1. 코드에 새로운 특이 케이스 대상을 추가한다. 함수의 반환 값으로 받거나 변환 함수를 적용하면 된다. 
+1. 특이 케이스를 검사하는 함수 본문을 수정하여 특이 케이스 객체의 속성으 사용하도록 한다. 
+1. 테스트한다.
+1. '여러 함수를 클래스로 묶기(6.9)'나 '여러 함수를 변환 함수로 묶기(6.10)'를 적용하여, 특이 케이스를 처리하는 공통 동작을 새로운 요소로 옮긴다.
+1. 아직도 특이 케이스 검사 함수를 이용하는 곳이 남아 있다면 검사 '함수를 인라인(6.2)'한다.
+
+### 코드
+[part.05-Introduce_Special_Case](./part.05-Introduce_Special_Case)
+
+
+
+**[⬆ back to top](#table-of-contents)**
+
 
 
 ## INTRODUCE ASSERTION
