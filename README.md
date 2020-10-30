@@ -44,6 +44,11 @@
 
 
 ## 스터디 함께하는 분들과 대화
+- [redrebel](#https://github.com/redrebel)
+- [youngbeomrhee](https://github.com/youngbeomrhee)
+- [devJang](#https://github.com/devjang)
+- [accidentlywoo](#https://github.com/accidentlywoo)
+- [korkorna](#https://github.com/korkorna)
 
 ### 리팩터링에 대해
 리팩터링을 업무에서 사용하기 어렵다는 질문을 드림
