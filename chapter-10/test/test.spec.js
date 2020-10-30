@@ -8,6 +8,11 @@ const afterDisabilityAmount = require('../part.02-Consolidate_Conditional_Expres
 const beforeRating = require('../part.04-Replace_Conditional_With_Polymorphism/Rating/before');
 const afterRating = require('../part.04-Replace_Conditional_With_Polymorphism/Rating/after');
 
+const beforeCustomer = require('../part.06-Introduce_Assertion/before');
+const afterCustomer = require('../part.06-Introduce_Assertion/after');
+const beforeFindVillain = require('../part.07-Replace_Control_Flag_with_Break/before');
+const afterFindVillain = require('../part.07-Replace_Control_Flag_with_Break/after');
+
 // part.01
 describe('part.01 Decompose Conditional, 조건문 분해하기', () => {
 	const plan = {
@@ -82,6 +87,51 @@ describe('part.04-Replace_Conditional_With_Polymorphism, 조건부 로직을 다
 		it('After Rating', done => {
 			const myRating = afterRating(voyage, history);
 			expect(myRating).to.eql('B');
+			done();
+		});
+	});
+});
+
+describe('part.06-Introduce_Assertion, 어서션 추가하기', () => {
+	describe('Customer', () => {
+		it('Original Customer', done => {
+			const customer = new beforeCustomer({ discountRate: 0.3 });
+			expect(customer.applyDiscount(100)).to.eql(70);
+			done();
+		});
+		it('After Customer', done => {
+			// const customer = new afterCustomer({ discountRate: 0.3 });
+			const customer = new afterCustomer();
+			customer.discountRate = 0.3;
+			expect(customer.applyDiscount(100)).to.eql(70);
+			done();
+		});
+	});
+});
+
+describe('part.07-Replace_Control_Flag_with_Break, 제어 플래그를 탈출문으로 바꾸기', () => {
+	describe('findVillain', () => {
+		it('Original findVillain', done => {
+			const people = ['joker', 'st', 'hambugger', 'pizza'];
+			const villain = beforeFindVillain(people);
+			expect(villain).equal('joker');
+			done();
+		});
+		it('After findVillain', done => {
+			const people = ['joker', 'st', 'hambugger', 'pizza'];
+			const villain = afterFindVillain(people);
+			expect(villain).equal(true);
+			done();
+		});
+	});
+});
+
+describe('part.05-Introduce_Special_Case, 특이 케이스 추가하기', () => {
+	describe('Use Class', () => {
+		it('Original Code', done => {
+			done();
+		});
+		it('Refactoring Code', done => {
 			done();
 		});
 	});
