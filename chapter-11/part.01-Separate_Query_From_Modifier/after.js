@@ -1,16 +1,15 @@
-// 원래 함수를 호출하는 곳에서 새로운 질의함수를 호출하도록 바꾸고, 원래 함수에서 질의 관련 코드를 없앤다.
+// 중복된 코드를 제거하기 위해 질의 함수를 사용하도록 수정
 function alertForMiscreant(people) {
-	for (const p of people) {
-		if (p === 'joker') {
-			return setOffAlarms();
-			// return;
-		}
-		if (p === 'ham') {
-			return setOffAlarms();
-			// return;
-		}
-	}
-	return;
+	if (findMiscreant(people) !== '') return setOffAlarms();
+	// for (const p of people) {
+	// 	if (p === 'joker') {
+	// 		return setOffAlarms();
+	// 	}
+	// 	if (p === 'ham') {
+	// 		return setOffAlarms();
+	// 	}
+	// }
+	// return;
 }
 
 function setOffAlarms() {
