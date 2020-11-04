@@ -16,9 +16,13 @@ class HeatingPlan {
 
 function caller(aRoom) {
 	const aPlan = new HeatingPlan(10, 20);
-	const low = aRoom.daysTempRange.low;
-	const high = aRoom.daysTempRange.high;
-	if (!aPlan.withinRange(low, high)) return 'room temperature went outside range';
+	// 필요 없는 부분은 제거
+	// const low = aRoom.daysTempRange.low;
+	// const high = aRoom.daysTempRange.high;
+
+	// 기존 함수를 호출하는 코드를 찾아서 새 함수를 호출하도록 수정
+	if (!aPlan.xxNEWwithinRange(aRoom.daysTempRange))
+		return 'room temperature went outside range';
 
 	return 'The room temperature normal in range';
 }
