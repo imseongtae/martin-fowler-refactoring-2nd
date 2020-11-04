@@ -1,6 +1,6 @@
-// 범위를 다루는 로직에서는 중간에 해당하는 함수에서 시작
+// 함수에서 사용하던 리터럴들을 적절한 매개변수로 대체
 function withinBand(usage, bottom, top) {
-	return usage > 100 ? Math.min(usage, 200) - 100 : 0;
+	return usage > bottom ? Math.min(usage, top) - bottom : 0;
 }
 
 // 함수 선언 바꾸기를 적용하고, 리터럴들을 호출 시점에 바꾸도록 적용
