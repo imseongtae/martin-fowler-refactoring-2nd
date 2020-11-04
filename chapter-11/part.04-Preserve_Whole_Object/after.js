@@ -7,6 +7,11 @@ class HeatingPlan {
 	withinRange(bottom, top) {
 		return bottom >= this._temperatureRange.low && top <= this._temperatureRange.high;
 	}
+	// 원하는 인터페이스를 갖춘 빈 메서드 생성, withinRange 대체하기 위함
+	xxNEWwithinRange(aNumberRange) {
+		// withinRange() 호출하는 코드로 채운다.
+		return this.withinRange(aNumberRange.low, aNumberRange.high);
+	}
 }
 
 function caller(aRoom) {
