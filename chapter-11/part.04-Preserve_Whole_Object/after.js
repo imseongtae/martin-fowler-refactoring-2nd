@@ -9,8 +9,12 @@ class HeatingPlan {
 	}
 	// 원하는 인터페이스를 갖춘 빈 메서드 생성, withinRange 대체하기 위함
 	xxNEWwithinRange(aNumberRange) {
-		// withinRange() 호출하는 코드로 채운다.
-		return this.withinRange(aNumberRange.low, aNumberRange.high);
+		// 새 함수로 대체했다면 원래 함수를 인라인해준다.
+		// return this.withinRange(aNumberRange.low, aNumberRange.high);
+		return (
+			aNumberRange.low >= this._temperatureRange.low &&
+			aNumberRange.high <= this._temperatureRange.high
+		);
 	}
 }
 
