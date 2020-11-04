@@ -1,4 +1,7 @@
 class Person {
+	constructor(id) {
+		this._id = id; // 생성자에서 값을 받도록 수정
+	}
 	get name() {
 		return this._name;
 	}
@@ -8,9 +11,10 @@ class Person {
 	get id() {
 		return this._id;
 	}
-	set id(arg) {
-		this._id = arg;
-	}
+	// 세터 메서드를 인라인
+	// set id(arg) {
+	// 	this._id = arg;
+	// }
 }
 
 module.exports = Person;
