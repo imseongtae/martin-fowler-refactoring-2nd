@@ -11,6 +11,8 @@
 1. [REMOVE FLAG ARGUMENT](#REMOVE-FLAG-ARGUMENT)
 1. [PRESERVE WHOLE OBJECT](#PRESERVE-WHOLE-OBJECT)
 1. [REPLACE PARAMETER WITH QUERY](#REPLACE-PARAMETER-WITH-QUERY)
+1. [REPLACE QUERY WITH PARAMETER](#REPLACE-QUERY-WITH-PARAMETER)
+1. [REMOVE SETTING METHOD](#REMOVE-SETTING-METHOD)
 
 ---
 
@@ -227,5 +229,94 @@ function availableVacation(anEmployee) {
 
 ### 코드
 [part.05-Replace_Parameter_With_Query](./part.05-Replace_Parameter_With_Query)
+
+**[⬆ back to top](#table-of-contents)**
+
+
+
+## REPLACE QUERY WITH PARAMETER
+11.6 질의 함수를 매개변수로 바꾸기
+
+```js
+targetTemperature(aPlan)
+
+function targetTemperature(aPlan) {
+  currentTemperature = thermostat.currentTemperature;
+  // rest of function
+}
+```
+
+```js
+targetTemperature(aPlan, currentTemperature)
+
+function targetTemperature(aPlan, currentTemperature) {
+  // rest of function
+}
+```
+
+### 배경(Motivation)
+코드를 읽다보면 함수 안에 두기엔 거북한 참조를 발견할 때가 있다. 이 문제는 해당 참조를 매개변수로 바꿔 해결할 수 있다. 참조를 풀어내는 책임을 호출자로 옮기는 것이다.  
+
+- 이런 상황 대부분은 코드의 의존 관계를 바꾸려할 때 벌어진다.  
+- 한 시점에 내린 결정이 영원히 옳을 수 없듯이, 프로그램을 더 잘 이해하게 됐을 때 더 나은 쪽으로 개선하기 쉽게 설계해두는 것이 중요하다.
+
+
+
+#### 왜하는가?
+'질의 함수를 매개변수로 바꾸기' 리팩토링을 활용하면 프로그램의 일부를 순수 함수로 바꿀 수 있으며, 결과적으로 그 부분은 테스트하거나 다루기가 쉬워진다.
+
+결국, 책임 소재를 어디에 배정하느냐의 문제로 귀결된다. 답을 찾기가 쉽지 않으며 항상 정답이 있는 것이 아니므로 프로젝트를 진행하며 균형점이 이리저리 옮겨질 수 있으니 이 리팩터링과는 친해져야 한다.
+
+
+### 절차
+1. 변수 추출하기로 질의 코드를 함수 본문의 나머지 코드와 분리
+1. 함수 본문 중 해당 질의를 호출하지 않는 코드들을 별도 함수로 추출
+1. 방금 만든 변수를 인라인하여 제거
+1. 원래 함수도 인라인한다
+1. 새 함수의 이름을 원래 함수의 이름으로 고친다
+
+### 코드
+[part.06-Replace_Query_With_Parameter](./part.06-Replace_Query_With_Parameter)
+
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## REMOVE SETTING METHOD
+11.7 세터 제거하기
+
+```js
+class Person {
+  get name() { ... }
+  set name(aString) { ... }
+}
+```
+
+```js
+class Person {
+  get name() { ... }
+}
+```
+
+### 배경(Motivation)
+세터 제거하기 리팩터링이 필요한 두 가지 상황  
+1. 사람들이 무조건 접근자 메서드를 통해서만 필드를 다루려고 할 때
+1. 클라이언트에서 생성 스크립트를 사용해 객체를 생성할 때다.
+
+
+#### 왜하는가?
+세터들을 제거하여 의도를 더 명확히 하기 위해
+- 세터를 제거하면 해당 필드는 오직 생성자에서만 설정되며, 수정하지 않겠다는 의도가 명명백백해짐
+- 변경될 가능성이 봉쇄됨
+
+
+### 절차
+1. 설정해야 할 값을 생성자에서 받지 않는다면 그 값을 받을 매개변수를 생성자에서 추가한다(함수 선언 바꾸기). 그런 다음 생성자 안에서 적절한 세터를 호출한다.
+1. 생성자 밖에서 세터를 호출하는 곳을 찾아 제거하고, 대신 새로운 생성자를 사용하도록 한다. 하나 수정할 때마다 테스트한다.
+1. 세터 메서드를 인라인한다. 가능하다면 해당 필드를 불변으로 만든다.
+1. 테스트한다.
+
+### 코드
+[part.07-Remove_Setting_Method](./part.07-Remove_Setting_Method)
 
 **[⬆ back to top](#table-of-contents)**
