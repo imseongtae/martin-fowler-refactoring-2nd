@@ -4,12 +4,13 @@ class Order {
 		this.itemPrice = itemPrice;
 	}
 
+	// 함수 간소화를 위해 임시 변수를 질의 함수로 바꾸기 적용
 	get finalPrice() {
 		const basePrice = this.quantity * this.itemPrice;
-		let discountLevel;
-		if (this.quantity > 100) discountLevel = 2;
-		else discountLevel = 1;
-		return this.discountedPrice(basePrice, discountLevel);
+		return this.discountedPrice(basePrice, this.discountLevel);
+	}
+	get discountLevel() {
+		return this.quantity > 100 ? 2 : 1;
 	}
 
 	discountedPrice(basePrice, discountLevel) {
