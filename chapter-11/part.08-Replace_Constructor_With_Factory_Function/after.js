@@ -3,6 +3,11 @@ function createEmployee(name, typeCode) {
 	return new Employee(name, typeCode);
 }
 
+// 함수에 문자열 리터럴을 건네는 것은 악취이므로, 직원 유형을 팩터리 함수의 이름에 녹인다
+function createEngineer(name) {
+	return new Employee(name, 'E');
+}
+
 class Employee {
 	constructor(name, typeCode) {
 		this._name = name;
@@ -21,4 +26,5 @@ class Employee {
 
 module.exports = {
 	createEmployee,
+	createEngineer,
 };
