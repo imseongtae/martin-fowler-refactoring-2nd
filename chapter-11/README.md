@@ -13,6 +13,8 @@
 1. [REPLACE PARAMETER WITH QUERY](#REPLACE-PARAMETER-WITH-QUERY)
 1. [REPLACE QUERY WITH PARAMETER](#REPLACE-QUERY-WITH-PARAMETER)
 1. [REMOVE SETTING METHOD](#REMOVE-SETTING-METHOD)
+1. [REPLACE CONSTRUCTOR WITH FACTORY FUNCTION](#REPLACE-CONSTRUCTOR-WITH-FACTORY-FUNCTION)
+
 
 ---
 
@@ -318,5 +320,43 @@ class Person {
 
 ### 코드
 [part.07-Remove_Setting_Method](./part.07-Remove_Setting_Method)
+
+**[⬆ back to top](#table-of-contents)**
+
+
+
+## REPLACE CONSTRUCTOR WITH FACTORY FUNCTION
+11.8 생성자를 팩터리 함수로 바꾸기
+
+```js
+leadEngineer = new Employee(document.leadEngineer, 'E');
+```
+
+```js
+leadEngineer = createEngineer(document.leadEngineer);
+```
+
+### 배경(Motivation)
+많은 객체지향 언어에서 제공하는 생성자는 객체를 초기화하는 용도의 함수이다.
+객체를 생성할 때 주로 생성자를 호출하지만 생성자에는 일반 함수에는 없는 제약이 따라 붙기도 한다.
+
+
+#### 왜하는가?
+생성자를 팩터리 함수로 바꾸기를 사용하면 생성자 제약 조건의 반대 이유로 사용할 수 있지 않을까?  
+
+1. 더 적절한 이름을 사용할 수 있다. 이는 생성자의 이름이 고정되지 않기 때문
+1. 일반 함수가 오길 기대하는 자리에 사용할 수 있다. 생성자 호출을 위해 특별한 연산자 `new`를 사용하지 않아도 되므로!
+
+
+### 절차
+1. 팩터리 함수를 만든다. 팩터리 함수의 본문에서는 원래의 생성자를 호출한다.
+1. 생성자를 호출하던 코드를 팩터리 함수 호출로 바꾼다.
+1. 하나씩 수정할 때마다 테스트한다.
+1. 생성자의 가시 범위가 최소가 되도록 제한한다.
+
+
+### 코드
+- [part.08-Replace_Constructor_With_Factory_Function](./part.08-Replace_Constructor_With_Factory_Function)
+
 
 **[⬆ back to top](#table-of-contents)**
