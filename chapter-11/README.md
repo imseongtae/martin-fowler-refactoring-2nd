@@ -360,3 +360,54 @@ leadEngineer = createEngineer(document.leadEngineer);
 
 
 **[⬆ back to top](#table-of-contents)**
+
+
+## REPLACE FUNCTION WITH COMMAND
+11.9 함수를 명령으로 바꾸기
+
+```js
+function score() {
+  let result = 0;
+  let healthLevel = 0;
+  // 긴 코드 생략
+}
+```
+
+```js
+class Scorer {
+  constructor(candidate, medicalExam, scoringGuide) {
+    this._candidate = candidate;
+    this._medicalExam = medicalExam;
+    this._scoringGuide = scoringGuide;
+  }
+  execute (candidate, medicalExam, scoringGuide) {
+    this._result = 0;
+    this._healthLevel = 0;
+    // 긴 코드 생략
+  }
+}
+```
+
+### 배경(Motivation)
+함수는 프로그래밍의 기본적인 빌딩 블록 중 하나인데, 이 함수를 함수만을 위한 객체 안으로 캡슐화하면 더 유용해지는 상황이 있다. 이런 객체를 가리켜 명령 객체(혹은 명령)라고 하는데, 명령 객체는 평범한 함수의 매커니즘보다 훨씬 유연하게 함수를 제어하고 표현할 수 있다.
+
+#### 왜하는가?
+명령은 평범한 함수 메커니즘보다 훨씬 유연하게 함수를 제어하고, 표현할 수 있다. 
+
+> 명령보다 더 간단한 방식으로는 얻을 수 없는 기능이 필요할 때 명령을 선택! 
+
+- 명령(command)이 최고의 효율을 가질 때만 사용하는 것일까?
+
+
+### 절차
+1. 대상 함수의 기능을 옮길 빈 클래스를 만든다. 클래스 이름은 함수 이름에 기초해 짓는다.
+1. 방금 생성한 빈 클래스로 함수를 옮긴다.
+  - 리팩터링이 끝날 때까지는 원래 함수를 전달 함수 역할로 남겨두자.
+  - 명령 관련 이름은 사용하는 프로그래밍 언어의 명명 규칙을 따른다. 규칙이 딱히 없다면 "execute"나 "call" 같이 명령의 실행 함수에 흔히 쓰이는 이름을 택하자
+1. 함수의 인수들 각각은 명령의 필드로 만들어 생성자를 통해 설정할지 고민해본다.
+
+
+### 코드
+- [part.09-Replace_Function_With_Command](./part.09-Replace_Function_With_Command)
+
+**[⬆ back to top](#table-of-contents)**
