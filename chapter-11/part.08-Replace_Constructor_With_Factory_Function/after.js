@@ -1,3 +1,8 @@
+// 팩터리 함수 생성, 팩터리 본문은 생성자에 위임하는 방식으로 구현
+function createEmployee(name, typeCode) {
+	return new Employee(name, typeCode);
+}
+
 class Employee {
 	constructor(name, typeCode) {
 		this._name = name;
@@ -14,4 +19,6 @@ class Employee {
 	}
 }
 
-module.exports = Employee;
+module.exports = {
+	createEmployee,
+};
