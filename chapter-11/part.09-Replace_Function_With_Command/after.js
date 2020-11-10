@@ -19,11 +19,8 @@ class Scorer {
 		this._healthLevel = 0;
 		this._highMedicalRiskFlag = false;
 
-		if (this._medicalExam.isSmoker) {
-			this._healthLevel += 10;
-			this._highMedicalRiskFlag = true;
-		}
-
+		// 함수가 사용하던 변수나 그 유효범위에 구애받지 않고, 함수 추출하기 리팩터링 적용
+		this.scoreSmoking();
 		this._certificationGrade = 'regular';
 		if (this._scoringGuide.stateWithLowCertification(this._candidate.originState)) {
 			this._certificationGrade = 'low';
@@ -32,6 +29,13 @@ class Scorer {
 		// 비슷한 코드가 한참 이어짐
 		this._result -= Math.max(this._healthLevel - 5, 0);
 		return this._result;
+	}
+
+	scoreSmoking() {
+		if (this._medicalExam.isSmoker) {
+			this._healthLevel += 10;
+			this._highMedicalRiskFlag = true;
+		}
 	}
 }
 
