@@ -14,7 +14,7 @@
 1. [REPLACE QUERY WITH PARAMETER](#REPLACE-QUERY-WITH-PARAMETER)
 1. [REMOVE SETTING METHOD](#REMOVE-SETTING-METHOD)
 1. [REPLACE CONSTRUCTOR WITH FACTORY FUNCTION](#REPLACE-CONSTRUCTOR-WITH-FACTORY-FUNCTION)
-
+1. [Replace Error Code with Exception](#Replace-Error-Code-with-Exception)
 
 ---
 
@@ -506,3 +506,86 @@ function calculateAscent() {
 **[⬆ back to top](#table-of-contents)**
 
 
+## Replace Error Code with Exception
+11.12 오류 코드를 예외로 바꾸기
+
+```js
+if (data)
+  return new ShippingRules(data);
+else 
+  return -23;
+```
+
+```js
+if (data)
+  return new ShippingRules(data);
+else 
+  throw new OrderProcessingError(-23);
+```
+
+### 배경(Motivation)
+내가(마틴 파울러) 프로그래밍을 시작할 당시엔 오류 코드를 사용하는 게 보편적이었다. 함수를 호출하면 언제든 오류가 반환될 수 있었고, 그래서 오류 코드 검사를 빼먹으면 안 됐다. 오류 코드를 검사해서 발생한 오류를 직접 처리하거나 다른 누군가가 처리해주길 기대하며 콜스택 위로 던져보냈다.
+
+예외를 사용하면 오류 코드를 일일이 검사하거나 오류를 식별해 콜스택 위로 던지는 일을 신경쓰지 않아도 된다. 
+
+예외는 정교한 매커니즘이지만 대다수의 다른 정교한 매커니즘과 같이 정확하게 사용할 때만 최고의 효과를 낸다. 
+
+
+#### 왜하는가?
+예외가 최고의 효과를 내기 위해
+
+### 절차
+1. 콜스택 상위에서 해당 예외를 처리할 예외 핸들러를 작성한다.
+1. 테스트한다.
+1. 해당 오류 코드를 대체할 예외와 그 밖의 예외를 구분할 식별 방법을 찾는다.
+1. 정적 검사를 수행한다.
+1. catch절을 수정하여 직접 처리할 수 있는 예외는 적절히 대처하고, 그렇지 않은 예외는 다시 던진다. 
+1. 테스트한다.
+1. 오류 코드를 반환하는 곳 모두에서 예외를 던지도록 수정한다. 하나씩 수정할 때마다 테스트한다.
+1. 모두 수정했다면 그 오류 코드를 콜스택 위로 전달하는 코드를 모두 제거한다. 하나씩 수정할 때마다 테스트한다.
+
+
+
+### 코드
+[part.12-Replace_Error_Code_with_Exception](./part.12-Replace_Error_Code_with_Exception)
+
+**[⬆ back to top](#table-of-contents)**
+
+
+
+## Replace Exception with Precheck
+11.13 예외를 사전확인으로 바꾸기
+
+```java
+double getValueForPeriod (int periodNumber) {
+  try {
+    return values[periodNumber];
+  } catch (ArrayIndexOutOfBoundsException e) {
+    return 0;
+  }
+}
+```
+
+```java
+double getValueForPeriod (int periodNumber) {
+  return (periodNumber >= values.length) ? 0 : values[periodNumber];
+}
+```
+
+### 배경(Motivation)
+예외는 프로그래밍의 의미 있는 한 걸음이지만, 예외는 과용되곤 한다. 예외는 '뜻밖의 오류'라는, 말 그대로 예외적으로 동작할 때만 쓰여야 한다. 함수 수행시 문제가 될 수 있는 조건을 함수 호출 전에 검사할 수 있다면, 예외를 던지는 대신 호출하는 곳에서 조건을 검사하도록 해야 한다.
+
+#### 왜하는가?
+예외의 과용을 막기 위해서
+
+
+### 절차
+1. 예외를 유발하는 상황을 검사할 수 있는 조건문을 추가한다. catch 블록의 코드를 조건문의 조건절 중 하나로 옮기고, 남은 try 블록의 코드를 다른 조건절로 옮긴다.
+1. catch 블록에 어서션을 추가하고 테스트한다.
+1. try문과 catch 블록을 제거한다.
+1. 테스트한다.
+
+### 코드
+
+
+**[⬆ back to top](#table-of-contents)**
