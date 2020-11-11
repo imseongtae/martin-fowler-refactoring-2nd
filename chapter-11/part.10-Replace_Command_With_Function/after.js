@@ -8,8 +8,10 @@ class ChargeCalculator {
 	get baseCharge() {
 		return this._customer.baseRate * this._usage;
 	}
+	// baseCharge() 같이 값을 반환하는 보조 메서드는 변수로 추출!
 	get charge() {
-		return this.baseCharge + this._provider.connectionCharge;
+		const baseCharge = this.baseCharge();
+		return baseCharge + this._provider.connectionCharge;
 	}
 }
 
