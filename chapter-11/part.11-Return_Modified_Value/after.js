@@ -4,12 +4,11 @@ points.push({ elevation: 1 });
 points.push({ elevation: 2 });
 points.push({ elevation: 10 });
 
-let totalAscent = 0;
+// 이 계산이 변수 선언과 동시에 수행되도록 하고, 변수에 const를 붙여 불변으로 만듦
+const totalAscent = calculateAscent();
 let totalTime = 0;
 let totalDistance = 0;
 
-// 호출한 곳에서 변수에 대입하게 고친다
-totalAscent = calculateAscent();
 calculateTime();
 calculateDistance();
 const pace = totalTime / 60 / totalDistance;
