@@ -113,3 +113,74 @@ describe('part.08-Replace_Constructor_With_Factory_Function', () => {
 		});
 	});
 });
+
+describe('part.09-Replace_Function_With_Command', () => {
+	const candidate = {
+		originState: true,
+	};
+	const medicalExam = {
+		isSmoker: true,
+	};
+	const scoringGuide = {
+		stateWithLowCertification(value) {
+			return value;
+		},
+	};
+	describe('Original Code', () => {
+		const score = require('../part.09-Replace_Function_With_Command/before');
+		it('score result is -10', () => {
+			expect(score(candidate, medicalExam, scoringGuide)).equals(-10);
+		});
+	});
+	describe('Refactoring Code', () => {
+		const score = require('../part.09-Replace_Function_With_Command/after');
+		it('score result is -10', () => {
+			expect(score(candidate, medicalExam, scoringGuide)).equals(-10);
+		});
+	});
+});
+
+describe('part.10-Replace_Command_With_Function', () => {
+	const customer = {
+		baseRate: 1,
+	};
+	const usage = 1.5;
+	const provider = {
+		connectionCharge: 2,
+	};
+	describe('Original code', () => {
+		const charge = require('../part.10-Replace_Command_With_Function/before');
+		const monthCharge = charge(customer, usage, provider);
+		it('monthCharge가 반환하는 값은 3.5', () => {
+			expect(monthCharge).equals(3.5);
+		});
+	});
+	describe('Refactoring code', () => {
+		const charge = require('../part.10-Replace_Command_With_Function/after');
+		const monthCharge = charge(customer, usage, provider);
+		it('monthCharge가 반환하는 값은 3.5', () => {
+			expect(monthCharge).equals(3.5);
+		});
+	});
+});
+
+describe('part.11-Return_Modified_Value', () => {
+	describe('Original Code', () => {
+		const totalAscent = require('../part.11-Return_Modified_Value/before');
+		it('totalAscent value is 9', () => {
+			expect(totalAscent).equals(9);
+		});
+	});
+	describe('Refactoring Code', () => {
+		const totalAscent = require('../part.11-Return_Modified_Value/after');
+		it('totalAscent value is 9', () => {
+			expect(totalAscent).equals(9);
+		});
+	});
+});
+
+describe('part.12-Replace_Error_Code_with_Exception', () => {
+	describe('Original Code', () => {
+		//
+	});
+});
