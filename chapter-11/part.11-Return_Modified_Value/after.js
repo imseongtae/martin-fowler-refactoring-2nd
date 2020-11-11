@@ -6,11 +6,10 @@ points.push({ elevation: 10 });
 
 // 이 계산이 변수 선언과 동시에 수행되도록 하고, 변수에 const를 붙여 불변으로 만듦
 const totalAscent = calculateAscent();
-let totalTime = 0;
-let totalDistance = 0;
+// 다른 함수들도 계산이 변수 선언과 동시에 이루어지도록 수정하고, 불변으로 만든다
+const totalTime = calculateTime();
+const totalDistance = calculateDistance();
 
-calculateTime();
-calculateDistance();
 const pace = totalTime / 60 / totalDistance;
 
 // 이번 리팩터링에서는 고도 상승분 계산만을 고려함
