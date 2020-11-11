@@ -411,3 +411,98 @@ class Scorer {
 - [part.09-Replace_Function_With_Command](./part.09-Replace_Function_With_Command)
 
 **[⬆ back to top](#table-of-contents)**
+
+
+
+## REPLACE COMMAND WITH FUNCTION
+11.10 명령을 함수로 바꾸기
+
+```js
+class ChargeCalculator {
+  constructor(customer, usage) {
+    this._customer = customer;
+    this._usage = usage;
+  }
+  execute() {
+    return this._customer.rate * this._usage;
+  }
+}
+```
+
+```js
+function charge(customer, usage) {
+  return customer.rate * usage;
+}
+```
+
+### 배경(Motivation)
+명령 객체는 복잡한 연산을 다룰 수 있는 강력한 매커니즘을 제공한다.
+
+
+#### 왜하는가?
+명령 객체는 복잡한 연산을 다룰 수 있는 강력한 매커니즘을 제공하지만 이련 능력은 공짜가 아니다.
+명령은 그저 함수를 하나 호출해 정해진 일을 수행하는 용도로 주로 쓰인다. 이런 상황이고 로직이 크게 복잡하지 않다면 명령 객체는 장점보다 단점이 크니 평범한 함수로 바꿔주는 게 낫다.
+
+
+### 절차
+1. 명령을 생성하는 코드와 명령의 실행 메서드를 호출하는 코드를 함께 함수로 추출한다.
+1. 명령의 실행 함수가 호출하는 보조 메서드들 각각을 인라인한다.
+1. 함수 선언 바꾸기를 적용하여, 생성자의 매개변수 모두를 명령의 실행 메서드로 옮긴다.
+1. 명령의 실행 메서드에서 참조하는 필드들 대신 대응하는 매개변수를 사용하게끔 바꾼다. 하나씩 수정할 때마다 테스트한다.
+1. 생성자 호출과 명령의 실행 메서드 호출을 호출자 안으로 인라인한다.
+1. 테스트한다. 
+1. 죽은 코드 제거하기로 명령 클래스를 없앤다.
+
+
+### 코드
+[part.10-Replace_Command_With_Function](./part.10-Replace_Command_With_Function)
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## Return Modified Value
+11.11 수정된 값 반환하기
+
+```js
+let totalAscent = 0;
+calculateAscent();
+
+function calculateAscent() {
+	for (let i = 1; i < points.length; i++) {
+		const verticalChange = points[i].elevation - points[i - 1].elevation;
+		totalAscent += verticalChange > 0 ? verticalChange : 0;
+	}
+}
+```
+
+```js
+
+```
+
+### 배경(Motivation)
+
+
+#### 왜하는가?
+- 데이터가 수정됨을 알려주기 위해서! 
+- 데이터가 어떻게 수정되는지 추적하는 일은 매우 어려운 부분이므로, 데이터가 수정
+
+이 리팩터링은 값 하나를 계산한다는 분명한 목적이 있는 함수들에 가장 효과적이다.  
+반대로 값 여러 개를 갱신하는 함수에는 효과적이지 않다. 
+
+
+### 절차
+1. 함수가 수정된 값을 반환하게 하여 호출자가 그 값을 자신의 변수에 저장하게 한다.
+1. 테스트한다.
+1. 피호출 함수 안에 반환할 값을 가리키는 새로운 변수를 선언한다.
+1. 테스트한다.
+1. 계산이 선언과 동시에 이뤄지도록 통합한다.
+1. 테스트한다.
+1. 피호출 함수의 변수 이름을 새 역할에 어울리도록 바꿔준다.
+1. 테스트한다.
+
+### 코드
+[part.11-Return_Modified_Value](./part.11-Return_Modified_Value)
+
+**[⬆ back to top](#table-of-contents)**
+
+
