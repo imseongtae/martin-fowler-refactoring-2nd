@@ -6,7 +6,7 @@
 
 ## table of contents
 1. [PULL UP METHOD](#PULL-UP-METHOD)
-
+1. [Pull Up Field](#Pull-Up-Field)
 
 ---
 
@@ -54,6 +54,52 @@ class Engineer extends Employee {}
 
 ### 코드
 [part.01-Pull_Up_Method](./part.01-Pull_Up_Method)
+
+
+**[⬆ back to top](#table-of-contents)**
+
+
+## Pull Up Field
+
+
+```java
+class Employee { ... }
+
+class Salesperson extends Employee {
+  private String name;
+}
+class Engineer extends Employee {
+  private String name;
+}
+```
+
+```java
+class Employee {
+  protected String name;
+}
+
+class Salesperson extends Employee { ... }
+class Engineer extends Employee { ... }
+```
+
+### 배경(Motivation)
+서브클래스들이 독립적으로 개발되었거나 뒤늦게 하나의 계층구조로 리팩터링된 경우라면 일부 기능이 중복되어 있을 때가 왕왕 있다. 특히 필드가 중복되기 쉽다. 
+필드들을 분석한 후 비슷한 방식으로 쓰인다고 판단되면 슈퍼클래스로 끌어올리자
+
+#### 왜하는가?
+두 가지 중복을 줄이기 위해  
+1. 데이터 중복 선언을 없애고
+1. 해당 필드를 사용하는 동작을 서브클래스에서 슈퍼클래스로 옮길 수 있다.
+
+
+### 절차
+1. 후보 필드들을 사용하는 곳 모두가 그 필드들을 똑같은 방식으로 사용하는지 면밀히 살핀다.
+1. 필드들의 이름이 각기 다르다면 똑같은 이름으로 바꾼다(필드 이름 바꾸기)
+1. 슈퍼클래스에 새로운 필드를 생성한다.
+1. 서브클래스의 필드들을 제거한다.
+1. 테스트한다. 
+
+### 코드
 
 
 **[⬆ back to top](#table-of-contents)**
