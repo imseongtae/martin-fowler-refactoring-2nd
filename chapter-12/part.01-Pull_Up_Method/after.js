@@ -16,9 +16,10 @@ class Employee extends Party {
 }
 
 class Department extends Party {
-	get annualCost() {
-		return this.monthlyCost * 12;
-	}
+	// 마찬가지로 annualCost() 제거 후 테스트
+	// get annualCost() {
+	// 	return this.monthlyCost * 12;
+	// }
 }
 
 module.exports = {
