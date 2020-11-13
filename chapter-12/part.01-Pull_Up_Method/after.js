@@ -5,7 +5,8 @@ class Party {
 }
 
 class Employee extends Party {
-	get totalAnnualCost() {
+	// 두 메서드의 이름을 통일한다
+	get annualCost() {
 		return this.monthlyCost * 12;
 	}
 }
