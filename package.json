@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "js-money": "^0.6.3",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   }
 }
